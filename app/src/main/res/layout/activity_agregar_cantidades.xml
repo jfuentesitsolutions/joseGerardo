@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".agregar_cantidades"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Existencias"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text="Presentación:" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spiner_lista_pre"
+                ></Spinner>
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="10dp">
+
+            <TextView
+                android:textSize="20dp"
+                android:text="Cantidad:"/>
+
+            <EditText
+                android:hint="Ingresar la cantidad"
+                android:inputType="numberDecimal"
+                android:id="@+id/txtCantida"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="10dp"
+            android:gravity="center">
+
+            <Button
+            android:text="Ajustar"
+                android:id="@+id/btn_canti_ajustar"/>
+
+            <Button
+                android:text="Sumar"
+                android:id="@+id/btn_canti_sumar"/>
+
+
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

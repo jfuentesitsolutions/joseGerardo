@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">joseGerardo</string>
+    <string name="titulo">Tienda José Gerardo</string>
+    <string name="bus">Buscar</string>
+    <string name="agr">Agregar Producto</string>
+    <string name="lim">Limpiar</string>
+    <string name="con">Conectar</string>
+    <string name="texto">text</string>
+    <string name="text_splash">Aplicación Movil By Fuentes</string>
+    <string name="btn_ingreso">Ingresar</string>
+    <string name="txtUsuario">Ingrese el usuario</string>
+    <string name="txtContrase">Ingrese la contraseña</string>
+    <string name="btnCierre">Salir</string>
+    <string name="productos">acceso a todos los productos</string>
+    <string name="prese">Ver presentaciones</string>
+    <string name="lblPro">Nombre del producto:</string>
+    <string name="lblCo">Codigo del producto:</string>
+    <string name="titu">Configuración de red</string>
+    <string name="b_con">Guardar configuración</string>
+    <string name="tituloInforPre">Presentaciones del producto</string>
+    <string name="lblprese">Nombre de la presentación:</string>
+    <string name="tit_nombre">Cambiar nombre del producto</string>
+    <string name="t_diag_cate">Cambiar categoria</string>
+    <string name="dia_titu_marca">Cambiar marca</string>
+    <string name="dia_titu_estan">Cambiar estante</string>
+
+
+</resources>
