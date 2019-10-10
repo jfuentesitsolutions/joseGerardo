@@ -40,7 +40,6 @@ import java.util.ArrayList;
 public class busquedas extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
 
-    ImageView imgCod;
     String ipe, puertoe, producto_en_espera="";
     singleton sesio=singleton.getInstance();
     RequestQueue res;
@@ -63,14 +62,6 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
         cargandoProductos();
 
-
-        imgCod=(ImageView)findViewById(R.id.imgCod);
-        imgCod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                abrirVentanaDialogo();
-            }
-        });
 
     }
 

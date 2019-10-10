@@ -10,22 +10,9 @@
 
         <menu>
             <item
-                android:id="@+id/btn_buscar"
-                android:icon="@drawable/busqueda"
-                android:title="@string/bus"
-                />
-
-            <item
-                android:id="@+id/btn_agrega"
-                android:icon="@drawable/agregar"
-                android:title="@string/agr"
-                />
-
-            <item
-                android:id="@+id/btn_limpia"
-                android:icon="@drawable/limpiar"
-                android:title="@string/lim"
-                />
+                android:id="@+id/btnCerrarS"
+                android:icon="@drawable/salir"
+                android:title="Cerrar sesión"/>
 
             <item
                 android:id="@+id/btn_conectar"
@@ -35,7 +22,7 @@
 
             <item
                 android:id="@+id/btn_cerrar"
-                android:icon="@drawable/salir"
+                android:icon="@drawable/cerrar"
                 android:title="@string/btnCierre"
                 />
         </menu>

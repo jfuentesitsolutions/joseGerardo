@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/texto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/degradado_login">
 
+    <!---
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,6 +23,196 @@
             app:srcCompat="@drawable/buscar" />
     </TableLayout>
 
+    -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="30dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:collapseColumns="*"
+        android:scrollbars="vertical">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/order2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgBuscar"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Productos"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/search"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgBuscar2"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Buscar Productos"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/stock"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgEstantes"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estantes"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/design"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgPresentaciones"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Presentaciones"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/cate"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgCategorias"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categorias"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:elevation="8dp"
+                android:layout_gravity="center">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </TableRow>
+
+    </TableLayout>
+
+    </ScrollView>
+
+</LinearLayout>

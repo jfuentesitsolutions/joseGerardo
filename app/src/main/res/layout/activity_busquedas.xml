@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".busquedas">
+    tools:context=".busquedas"
+    android:orientation="vertical"
+    android:background="@drawable/degradado_splash">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp">
-
-            <TableRow>
-                <ImageView
-                    android:id="@+id/imgCod"
-                    android:layout_width="56dp"
-                    android:layout_height="46dp"
-                    app:srcCompat="@drawable/codigo"
-                    tools:layout_editor_absoluteX="331dp"
-                    tools:layout_editor_absoluteY="24dp" />
-            </TableRow>
-        </TableLayout>
-
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -43,9 +25,4 @@
     </LinearLayout>
 
 
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

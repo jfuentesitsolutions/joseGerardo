@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20sp">
+    android:padding="20sp"
+    android:background="@drawable/degradado_login">
 
     <TextView
         android:id="@+id/textView3"
@@ -10,32 +12,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titu"
-        android:textSize="20sp"
-        android:paddingTop="10sp"/>
+        android:textSize="25sp"
+        android:paddingTop="10sp"
+        android:layout_marginBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/txtIp"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ingrese la direccion ip del servidor"
-        android:paddingTop="25sp"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtPuer"
+        <EditText
+            android:id="@+id/txtIp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="IP del servidor"
+            android:paddingTop="25sp"
+            android:textColor="@android:color/white"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ingrese el puerto de escucha"
-        android:paddingTop="25sp"
-        />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtPuer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Puerto"
+            android:paddingTop="25sp"
+            android:textColor="@android:color/white"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btnGuardar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/b_con"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:background="@drawable/redondeo"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:elevation="4dp"
         />
 </LinearLayout>

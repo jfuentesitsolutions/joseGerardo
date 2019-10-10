@@ -2,6 +2,7 @@ package com.jfuentes.josegerardo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -11,7 +12,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     singleton sesio=singleton.getInstance();
     RequestQueue res;
     TextView nombre;
-    ImageView bu, usu, pro;
+    ImageButton bu, usu, pro;
     String ipe="", puertoe="";
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         usu=findViewById(R.id.imgBuscar);
+        bu=findViewById(R.id.imgBuscar2);
+
         usu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,13 +59,79 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirVentanaDialogo();
+            }
+        });
+
+    }
+
+    private void abrirVentanaDialogo(){
+
+        AlertDialog.Builder mBuilder= new AlertDialog.Builder(MainActivity.this);
+        View mView=getLayoutInflater().inflate(R.layout.tipo_codigo, null);
+
+        final TextView txtB=(TextView)mView.findViewById(R.id.txtCodigoManual);
+
+        Button btnManual=(Button)mView.findViewById(R.id.btnBManual);
+        btnManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtB.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Tienes que ingresar un codigo", Toast.LENGTH_LONG).show();
+                }else {
+                    abrirActiviti(txtB.getText().toString());
+                }
+            }
+        });
+
+        Button btnE=(Button)mView.findViewById(R.id.btnEscanear);
+        btnE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                escanear();
+            }
+        });
+
+
+        mBuilder.setView(mView);
+        AlertDialog dialog= mBuilder.create();
+        dialog.show();
+
+
+    }
+
+    public void escanear(){
+        IntentIntegrator intent=new IntentIntegrator(this);
+        intent.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+
+        intent.setPrompt("ESCANEAR");
+        intent.setCameraId(0);
+        intent.setBeepEnabled(true);
+        intent.setBarcodeImageEnabled(false);
+        intent.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result=IntentIntegrator.parseActivityResult(requestCode, resultCode,data);
+
+        if(result != null){
+            if(result.getContents()==null){
+                Toast.makeText(this, "Escaneo cancelado", Toast.LENGTH_SHORT).show();
+            }else{
+                abrirActiviti(result.getContents().toString());
+            }
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
-
         return true;
     }
 
@@ -73,16 +145,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Esta conectado",Toast.LENGTH_LONG).show();
         }else if(id==R.id.btn_cerrar){
             System.exit(0);
+        }else if(id==R.id.btnCerrarS){
+            intent=new Intent(this, loggin.class);
+            startActivity(intent);
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-    }
 
     private void abrirActiviti(String codigo){
 

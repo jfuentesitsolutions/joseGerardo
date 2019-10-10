@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="tema_login" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#f5f4f2</item>
+        <item name="colorPrimaryDark">#4D4D4B</item>
+        <item name="colorAccent">#f5f4f2</item>
+    </style>
+
+    <style name="color_linea" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="android:textColorHighlight">@android:color/white</item>
+    </style>
+
+    <style name="redondo" parent="TextAppearance.AppCompat.Button">
+        <item name="android:bottomRightRadius">10dp</item>
+    </style>
+
+    <style name="material_botonA" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+
 </resources>

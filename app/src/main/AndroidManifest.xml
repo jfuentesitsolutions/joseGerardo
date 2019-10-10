@@ -14,14 +14,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".agregar_cantidades"></activity>
-        <activity android:name=".busquedas" />
+        <activity android:name=".busquedas"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentaciones"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".info_producto" />
         <activity
             android:name=".loggin"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/tema_login" />
         <activity
             android:name=".splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -31,7 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

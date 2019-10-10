@@ -23,6 +23,8 @@
     <string name="t_diag_cate">Cambiar categoria</string>
     <string name="dia_titu_marca">Cambiar marca</string>
     <string name="dia_titu_estan">Cambiar estante</string>
+    <string name="ValidarNombre">Escriba el nombre</string>
+    <string name="ValidarContrase">Pon la contraseña</string>
 
 
 </resources>
