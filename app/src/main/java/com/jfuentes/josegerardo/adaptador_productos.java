@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView nom, cod,estante;
-        Button btnDetalles;
+        ImageButton btnDetalles;
         Context contexto;
         singleton sesion=singleton.getInstance();
         String nombre, codigo, estan, cate, marca, exis, id, idpro, idcate, idmarc, idesta;
@@ -33,14 +34,14 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
             nom=(TextView)itemView.findViewById(R.id.txtNombrePro);
             cod=(TextView)itemView.findViewById(R.id.txtCodigoo);
             estante=(TextView)itemView.findViewById(R.id.txtEstantee);
-            btnDetalles=(Button)itemView.findViewById(R.id.btnVerDetalles);
+            btnDetalles=(ImageButton) itemView.findViewById(R.id.btnVerDetalles);
 
         }
 
         public void asigandoDato(String da, String co, String es, String c, String m, String e ,String i, String id_p, String idcat, String idmar, String ides){
             nom.setText(da);
-            cod.setText("Codigo: "+co);
-            estante.setText("Estante: "+es);
+            cod.setText(co);
+            estante.setText(es);
             nombre=da;
             codigo=co;
             estan=es;

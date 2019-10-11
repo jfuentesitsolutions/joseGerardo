@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:hint="Ingrese el usuario"
-            android:textColorHint="@color/colorPrimaryDark"
+            android:textColorHint="@android:color/white"
             app:counterEnabled="true"
             app:counterMaxLength="14"
             app:passwordToggleTint="#00FCF5F5"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:hint="Contraseña"
             app:errorEnabled="true"
-            android:textColorHint="@color/colorPrimaryDark"
+            android:textColorHint="@android:color/white"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@android:color/white"
             android:id="@+id/layouC"
@@ -91,7 +91,8 @@
                 android:layout_width="269dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="#f5f4f2" />
+                android:textColor="#f5f4f2"
+                android:theme="@style/color_linea"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -117,7 +118,6 @@
         android:layout_width="37dp"
         android:layout_height="49dp"
         android:src="@drawable/config"
-        android:layout_gravity="end"
-        android:layout_marginRight="20dp" />
+        android:layout_gravity="center" />
 
 </LinearLayout>

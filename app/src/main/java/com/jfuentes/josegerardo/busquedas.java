@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -62,6 +64,33 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
         cargandoProductos();
 
+        SwipeableRecyclerViewTouchListener desliza = new SwipeableRecyclerViewTouchListener(lista, new SwipeableRecyclerViewTouchListener.SwipeListener() {
+            @Override
+            public boolean canSwipeLeft(int position) {
+                return true;
+            }
+
+            @Override
+            public boolean canSwipeRight(int position) {
+                return true;
+            }
+
+            @Override
+            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] ints) {
+
+            }
+
+            @Override
+            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] ints) {
+                for (int position : ints) {
+                    lista_P.remove(position);
+                    adaptador.notifyItemRemoved(position);
+                }
+                adaptador.notifyDataSetChanged();
+            }
+        });
+
+        lista.addOnItemTouchListener(desliza);
 
     }
 
@@ -219,9 +248,17 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+
         getMenuInflater().inflate(R.menu.menu_busqueda, menu);
         MenuItem item= menu.findItem(R.id.buscador);
         SearchView bus=(SearchView) item.getActionView();
+
+        bus.setMaxWidth(width);
+
 
         bus.setOnQueryTextListener(this);
 

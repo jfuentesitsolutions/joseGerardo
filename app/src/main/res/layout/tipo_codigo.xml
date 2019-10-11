@@ -18,7 +18,8 @@
             android:layout_marginBottom="20dp"
             android:text="Elija la captura de codigo"
             android:textAlignment="center"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textColor="@android:color/white"/>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -27,19 +28,34 @@
 
             <TableRow>
 
-                <EditText
-                    android:id="@+id/txtCodigoManual"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Ingrese el codigo"
-                    android:inputType="numberDecimal" />
+                    android:theme="@style/color_linea"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/txtCodigoManual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Ingrese el codigo"
+                        android:inputType="numberDecimal"
+                        android:textColor="@android:color/white"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <Button
                     android:id="@+id/btnBManual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buscar" />
+                    android:text="Buscar"
+                    android:layout_gravity="bottom"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/redondeo"/>
             </TableRow>
 
         </TableLayout>
