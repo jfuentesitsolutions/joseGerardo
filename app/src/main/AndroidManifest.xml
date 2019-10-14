@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".agregar_cantidades"></activity>
-        <activity android:name=".busquedas"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".maestro_detalle_productos.contenido_elemento"></activity>
+        <activity android:name=".maestro_detalle_productos.lista_productos" />
+        <activity android:name=".agregar_cantidades" />
+        <activity
+            android:name=".busquedas"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".presentaciones"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -32,8 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
