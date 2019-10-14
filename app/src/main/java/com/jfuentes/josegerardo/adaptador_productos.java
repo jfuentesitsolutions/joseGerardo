@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,11 +21,15 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
 
     ArrayList<productos> listaP;
 
+    public ArrayList<productos> getListaP() {
+        return listaP;
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView nom, cod,estante;
-        ImageButton btnDetalles;
         Context contexto;
+        CardView tar;
         singleton sesion=singleton.getInstance();
         String nombre, codigo, estan, cate, marca, exis, id, idpro, idcate, idmarc, idesta;
 
@@ -34,8 +39,7 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
             nom=(TextView)itemView.findViewById(R.id.txtNombrePro);
             cod=(TextView)itemView.findViewById(R.id.txtCodigoo);
             estante=(TextView)itemView.findViewById(R.id.txtEstantee);
-            btnDetalles=(ImageButton) itemView.findViewById(R.id.btnVerDetalles);
-
+            tar=itemView.findViewById(R.id.tarjeta);
         }
 
         public void asigandoDato(String da, String co, String es, String c, String m, String e ,String i, String id_p, String idcat, String idmar, String ides){
@@ -55,8 +59,8 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
             idesta=ides;
         }
 
-        void setOnClickListeners(){
-            btnDetalles.setOnClickListener(this);
+       void setOnClickListeners(){
+            tar.setOnClickListener(this);
         }
 
         @Override
@@ -75,8 +79,6 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
             sesion.setId_estante(idesta);
             contexto.startActivity(intent);
         }
-
-
     }
 
 
@@ -110,7 +112,6 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
         holder.setOnClickListeners();
 
     }
-
     @Override
     public int getItemCount() {
         return listaP.size();

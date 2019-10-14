@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -50,6 +52,7 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
     RecyclerView.LayoutManager diseño;
     ArrayList<productos> lista_P= new ArrayList<productos>();
     conexiones_base conec;
+    private Boolean tablet=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +61,18 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busquedas);
 
-        lista=(RecyclerView)findViewById(R.id.lista_productos);
-        diseño= new LinearLayoutManager(this);
+        if(findViewById(R.id.lista_productos_) !=null){
+            tablet=true;
+        }
+
+        if(tablet){
+            lista=findViewById(R.id.lista_productos_);
+            diseño= new GridLayoutManager(this,2);
+        }else{
+            lista=findViewById(R.id.lista_productos);
+            diseño= new LinearLayoutManager(this);
+        }
+
         lista.setLayoutManager(diseño);
 
         cargandoProductos();
@@ -82,11 +95,15 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
             @Override
             public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] ints) {
-                for (int position : ints) {
+                /*for (int position : ints) {
                     lista_P.remove(position);
                     adaptador.notifyItemRemoved(position);
                 }
-                adaptador.notifyDataSetChanged();
+                adaptador.notifyDataSetChanged();*/
+
+                adaptador_productos ada=(adaptador_productos) recyclerView.getAdapter();
+                productos p=ada.listaP.get(ints[0]);
+                Toast.makeText(busquedas.this, p.getNombre(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/idbutton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/degradado_login"
     android:orientation="vertical"
-    tools:context=".busquedas">
+    android:background="@drawable/degradado_login">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lista_productos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lista_productos_"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -27,5 +25,4 @@
         android:background="@drawable/degradado_splash"
         android:theme="@style/tema_btn"/>
 
-
-</RelativeLayout>
+</LinearLayout>
