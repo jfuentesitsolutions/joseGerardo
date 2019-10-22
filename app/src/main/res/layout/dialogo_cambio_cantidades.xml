@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialogo_redondo_2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:text="Agregar Existencias"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/white"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:layout_margin="15dp">
+
+        <TableRow
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:text="Presentación:"
+                android:textColor="@android:color/white"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/dial_spinner_prese"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="10dp">
+
+            <TextView
+                android:textSize="20dp"
+                android:text="Cantidad:"
+                android:textColor="@android:color/white"/>
+
+            <EditText
+                android:id="@+id/dia_cantidad"
+                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                android:hint="Ingresar la cantidad"
+                android:inputType="numberDecimal"
+                android:textColor="@android:color/white"
+                android:textColorHighlight="@color/ColorAccent2"
+                android:textColorHint="@color/ColorAccent2" />
+
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:text="Ajustar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_dia_ajustar"
+            android:textAllCaps="false"
+            android:background="@drawable/redondeo"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:elevation="2dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:text="Sumar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_dia_sumar"
+            android:textAllCaps="false"
+            android:background="@drawable/redondeo"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:elevation="2dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
