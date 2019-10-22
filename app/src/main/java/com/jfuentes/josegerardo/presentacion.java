@@ -11,6 +11,12 @@ public class presentacion implements Parcelable {
     private String tipo;
     private String presentacion;
 
+    public int getImagen() {
+        return imagen;
+    }
+
+    private int imagen;
+
     public presentacion(String idpre, String cantidad, String precio, String tipo, String presentacion) {
         this.idpre = idpre;
         this.cantidad = cantidad;
@@ -18,6 +24,16 @@ public class presentacion implements Parcelable {
         this.tipo = tipo;
         this.presentacion = presentacion;
     }
+
+    public presentacion(String idpre, String cantidad, String precio, String tipo, String presentacion, int img) {
+        this.idpre = idpre;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.tipo = tipo;
+        this.presentacion = presentacion;
+        this.imagen=img;
+    }
+
     public String getIdpre() {
         return idpre;
     }
@@ -41,8 +57,6 @@ public class presentacion implements Parcelable {
     public String toString(){
         return presentacion;
     }
-
-
 
 
     protected presentacion(Parcel in) {

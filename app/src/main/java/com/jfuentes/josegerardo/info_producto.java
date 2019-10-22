@@ -166,6 +166,37 @@ public class info_producto extends AppCompatActivity {
         }
     }
 
+    public void conexion(String URL) {
+        res = volleySingleton.getInstance(this).getmRequesQueve();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject objeto=null;
+                String [][] datos=new String[response.length()][5];
+                for (int i=0;i<response.length();i++){
+                    try {
+                        objeto= response.getJSONObject(i);
+
+                        lista.add(new presentacion(objeto.getString("idpre"), objeto.getString("cantidad"),
+                                objeto.getString("precio"), objeto.getString("tipo"), objeto.getString("presentacion")));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "No existen presentaciones", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "No hay presentaciones", Toast.LENGTH_LONG).show();
+            }
+        });
+        res.add(jsonArrayRequest);
+    }
+
     private boolean accediendoDatos(){
         SharedPreferences prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=prefe.edit();
@@ -179,43 +210,12 @@ public class info_producto extends AppCompatActivity {
         }
     }
 
-    public void conexion(String URL) {
-            res = volleySingleton.getInstance(this).getmRequesQueve();
-
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    JSONObject objeto=null;
-                    String [][] datos=new String[response.length()][5];
-                    for (int i=0;i<response.length();i++){
-                        try {
-                            objeto= response.getJSONObject(i);
-
-                           lista.add(new presentacion(objeto.getString("idpre"), objeto.getString("cantidad"),
-                                    objeto.getString("precio"), objeto.getString("tipo"), objeto.getString("presentacion")));
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "No existen presentaciones", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "No hay presentaciones", Toast.LENGTH_LONG).show();
-                }
-            });
-            res.add(jsonArrayRequest);
-    }
-
     private void abrirVentanaDialogo(){
 
         AlertDialog.Builder mBuilder= new AlertDialog.Builder(info_producto.this);
         View mView=getLayoutInflater().inflate(R.layout.dialogo_presentaciones, null);
 
-        ListView listaa=(ListView)mView.findViewById(R.id.lista_productos) ;
+        ListView listaa=mView.findViewById(R.id.lista_productos) ;
         Adaptador adap=new Adaptador(this.getApplicationContext(), lista);
         listaa.setAdapter(adap);
 
@@ -234,11 +234,11 @@ public class info_producto extends AppCompatActivity {
         switch (tv){
             case PRODUCTO :{
 
-                dia_nombre=(EditText)vista.findViewById(R.id.txtDia_Nombre_producto);
+                dia_nombre=vista.findViewById(R.id.txtDia_Nombre_producto);
                 dia_nombre.setText(pro.getText().toString());
 
 
-                Button btnIngre=(Button)vista.findViewById(R.id.dia_btnCambiar);
+                Button btnIngre=vista.findViewById(R.id.dia_btnCambiar);
                 btnIngre.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -259,7 +259,7 @@ public class info_producto extends AppCompatActivity {
 
             case CATEGORIA :{
 
-                categ=(Spinner)vista.findViewById(R.id.spinerCate);
+                categ=vista.findViewById(R.id.spinerCate);
                 Button btnIngreCate=vista.findViewById(R.id.dia_btnCambiarCat);
                 ArrayAdapter<entidad> adaptador=new ArrayAdapter<entidad>(this, R.layout.support_simple_spinner_dropdown_item,
                         lista_categoria);
@@ -304,7 +304,7 @@ public class info_producto extends AppCompatActivity {
 
             case ESTANTES :{
 
-                estan=(Spinner)vista.findViewById(R.id.spinerEstante);
+                estan=vista.findViewById(R.id.spinerEstante);
                 Button btnIngrees=vista.findViewById(R.id.btn_diag_esta);
                 ArrayAdapter<entidad> adaptador= new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, lista_est);
                 estan.setAdapter(adaptador);

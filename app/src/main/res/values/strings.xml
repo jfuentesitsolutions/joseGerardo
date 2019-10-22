@@ -9,6 +9,10 @@
     <string name="text_splash">Aplicación Movil By Fuentes</string>
     <string name="btn_ingreso">Ingresar</string>
     <string name="txtUsuario">Ingrese el usuario</string>
+    <string name="lblcate">Categoria</string>
+    <string name="lblmarca">Marca</string>
+    <string name="lblestante">Estante</string>
+    <string name="lblexist">Existencias</string>
     <string name="txtContrase">Ingrese la contraseña</string>
     <string name="btnCierre">Salir</string>
     <string name="productos">acceso a todos los productos</string>
@@ -25,6 +29,10 @@
     <string name="dia_titu_estan">Cambiar estante</string>
     <string name="ValidarNombre">Escriba el nombre</string>
     <string name="ValidarContrase">Pon la contraseña</string>
+    <string name="txtTitDialogo">Titulo</string>
+    <string name="txtMensaDialogo">Mensaje del dialogo</string>
+    <string name="btnAceptarDialogo">Aceptar</string>
+    <string name="btnCancelarDialogo">Cancelar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

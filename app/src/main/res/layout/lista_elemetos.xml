@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/lista_ele"
-    android:name="com.jfuentes.josegerardo.listaFrag"
+    android:name="com.jfuentes.josegerardo.lista_detalles"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layoutManager="LinearLayoutManager"
     tools:context=".maestro_detalle_productos.lista_productos"
-    tools:listitem="@layout/elemento_producto"/>
+    tools:listitem="@layout/elemento_producto" />

@@ -1,32 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogo_redondo_2">
 
     <TextView
         android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/tit_nombre"
-        android:textSize="20dp"/>
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:padding="15dp"/>
 
-    <EditText
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtDia_Nombre_producto"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        />
+        android:id="@+id/la_cambio_nombre"
+        android:padding="15dp"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDia_Nombre_producto"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:hint="Nombre producto"
+            android:textColor="@android:color/white"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cambiar nombre"
+        android:text="Cambiar"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:id="@+id/dia_btnCambiar"/>
+        android:id="@+id/dia_btnCambiar"
+        android:background="@drawable/redondeo"
+        android:padding="15dp"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        />
 
 
 </LinearLayout>

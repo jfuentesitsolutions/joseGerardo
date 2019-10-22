@@ -6,8 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".maestro_detalle_productos.lista_productos">
+    tools:context=".maestro_detalle_productos.lista_productos"
+    android:background="@drawable/degradados"
+    >
 
+    <!--
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -37,6 +40,15 @@
         android:layout_margin="16dp"
         android:src="@drawable/add"
         android:theme="@style/tema_btn"/>
+
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:id="@+id/progre"
+        />
+
+
 
 
 

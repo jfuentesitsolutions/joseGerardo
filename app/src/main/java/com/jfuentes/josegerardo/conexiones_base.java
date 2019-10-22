@@ -133,6 +133,7 @@ public class conexiones_base {
         return this.lista_P;
     }
 
+
     public ArrayList<entidad> llenarSpinerCat(){
 
         String url1="http://"+ipe+":"+puertoe+"/servidor/retornando_tablas.php?tabla="+1;
@@ -150,7 +151,8 @@ public class conexiones_base {
 
                                 lista_C.add(new entidad(objeto.getString("nombre_categoria"),
                                         objeto.getString("idcategoria"),
-                                        objeto.getString("descripcion")));
+                                        objeto.getString("descripcion"),
+                                        R.drawable.list_32));
 
 
 
@@ -192,7 +194,8 @@ public class conexiones_base {
 
                         lista_M.add(new entidad(objeto.getString("nombre"),
                                 objeto.getString("idmarca"),
-                                objeto.getString("descripcion")));
+                                objeto.getString("descripcion"),
+                                R.drawable.buffer_32));
 
 
 
@@ -234,7 +237,8 @@ public class conexiones_base {
 
                         lista_E.add(new entidad(objeto.getString("nombre"),
                                 objeto.getString("idestante"),
-                                objeto.getString("descripcion")));
+                                objeto.getString("descripcion"),
+                                R.drawable.warehouse_32));
 
 
 
@@ -258,7 +262,7 @@ public class conexiones_base {
         return lista_E;
     }
 
-    public void actualizandoDatos(final String opcion, final String ele, final String id, final EditText tex, final String cate, final AlertDialog aler){
+    public void actualizandoDatos(final String opcion, final String ele, final String id, final TextView tex, final String cate, final AlertDialog aler){
         accediendoDatos();
         String URL="http://"+ipe+":"+puertoe+"/servidor/actualizando_datos.php";
 

@@ -13,7 +13,9 @@
         android:layout_height="200dp"
         android:id="@+id/barra_herra"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@drawable/degradados_2"
+        android:elevation="16dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -21,15 +23,14 @@
             android:id="@+id/toolbar_layout"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/barraHerramientas">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -41,14 +42,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnActualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="16dp"
         app:layout_anchor="@+id/item_detail_container"
         app:layout_anchorGravity="top|end"
-        android:theme="@style/tema_btn"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:theme="@style/tema_btn_2"
+        app:srcCompat="@drawable/design"
+        android:elevation="18dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

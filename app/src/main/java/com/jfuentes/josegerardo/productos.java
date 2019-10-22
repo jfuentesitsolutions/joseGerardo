@@ -1,6 +1,8 @@
 package com.jfuentes.josegerardo;
 
-public class productos {
+import java.io.Serializable;
+
+public class productos implements Serializable {
     private String nombre, codigo, categoria, marca, estante, id, existencias, idproducto, idmarca, idcateg, idestante;
 
     public String getIdmarca() {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titulos">25sp</dimen>
+    <dimen name="padding_imagenes">15dp</dimen>
+    <dimen name="contenidos">18sp</dimen>
+    <dimen name="btn1">18sp</dimen>
+    <dimen name="btn2">20sp</dimen>
+    <dimen name="padding_botones">10dp</dimen>
+    <dimen name="margen_botones">15dp</dimen>
+    <dimen name="margen_contenidos">15dp</dimen>
+</resources>

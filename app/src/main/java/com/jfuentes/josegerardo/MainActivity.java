@@ -28,6 +28,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.jfuentes.josegerardo.maestro_detalle_productos.contenido_elemento;
+import com.jfuentes.josegerardo.maestro_detalle_productos.lista_productos;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         usu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento= new Intent(MainActivity.this,busquedas.class);
+                Intent intento= new Intent(MainActivity.this, lista_productos.class);
                 startActivity(intento);
             }
         });
@@ -75,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder mBuilder= new AlertDialog.Builder(MainActivity.this);
         View mView=getLayoutInflater().inflate(R.layout.tipo_codigo, null);
 
-        final TextView txtB=(TextView)mView.findViewById(R.id.txtCodigoManual);
+        final TextView txtB=mView.findViewById(R.id.txtCodigoManual);
 
-        Button btnManual=(Button)mView.findViewById(R.id.btnBManual);
+        Button btnManual=mView.findViewById(R.id.btnBManual);
         btnManual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnE=(Button)mView.findViewById(R.id.btnEscanear);
+        Button btnE=mView.findViewById(R.id.btnEscanear);
         btnE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         IntentIntegrator intent=new IntentIntegrator(this);
         intent.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
 
-        intent.setPrompt("ESCANEAR");
+        intent.setPrompt("Escanear el codigo de barras del productos");
         intent.setCameraId(0);
         intent.setBeepEnabled(true);
         intent.setBarcodeImageEnabled(false);
@@ -164,15 +166,26 @@ public class MainActivity extends AppCompatActivity {
         res = volleySingleton.getInstance(this).getmRequesQueve();
         String url1="http://"+ipe+":"+puertoe+"/servidor/productos.php?codi="+codigo;
 
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url1, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-
                 try {
                     JSONObject objeto = response.getJSONObject(0);
-                    sesio.setProducto(objeto.getString("producto"));
+                    productos producto= new productos(
+                            objeto.getString("producto"),
+                            objeto.getString("codigo"),
+                            objeto.getString("categoria"),
+                            objeto.getString("marca"),
+                            objeto.getString("estante"),
+                            objeto.getString("existencias"),
+                            objeto.getString("id"),
+                            objeto.getString("id_pro"),
+                            objeto.getString("idcat"),
+                            objeto.getString("idmar"),
+                            objeto.getString("idest"));
+
+                   /* sesio.setProducto(objeto.getString("producto"));
                     sesio.setCodigo(objeto.getString("codigo"));
                     sesio.setCategoria(objeto.getString("categoria"));
                     sesio.setMarca(objeto.getString("marca"));
@@ -181,15 +194,20 @@ public class MainActivity extends AppCompatActivity {
                     sesio.setId(objeto.getString("id"));
                     sesio.setIdcategoria(objeto.getString("idcat"));
                     sesio.setId_marca(objeto.getString("idmar"));
-                    sesio.setId_estante(objeto.getString("idest"));
+                    sesio.setId_estante(objeto.getString("idest"));*/
+
+                   Bundle bundle= new Bundle();
+                   bundle.putSerializable("producto",producto);
+                   bundle.putBoolean("busqueda_codigo",true);
 
                     Toast.makeText(getApplicationContext(),"Cargando información del producto",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MainActivity.this, info_producto.class);
+                    Intent intent = new Intent(MainActivity.this, contenido_elemento.class);
+                    intent.putExtras(bundle);
                     startActivity(intent);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "hola"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

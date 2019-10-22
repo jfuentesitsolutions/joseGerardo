@@ -1,111 +1,514 @@
 package com.jfuentes.josegerardo.maestro_detalle_productos;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.jfuentes.josegerardo.R;
+import com.jfuentes.josegerardo.adaptadores.spinner_adaptador;
+import com.jfuentes.josegerardo.adaptadores.spinner_adaptador_2;
+import com.jfuentes.josegerardo.agregar_cantidades;
+import com.jfuentes.josegerardo.clases.entidad;
+import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
+import com.jfuentes.josegerardo.clases.utilidades;
+import com.jfuentes.josegerardo.conexiones_base;
+import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
+import com.jfuentes.josegerardo.presentacion;
+import com.jfuentes.josegerardo.productos;
+import com.jfuentes.josegerardo.singleton;
+import com.jfuentes.josegerardo.volleySingleton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link fragment_contenido.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link fragment_contenido#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class fragment_contenido extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-    private OnFragmentInteractionListener mListener;
+import static android.app.Activity.RESULT_OK;
+
+public class fragment_contenido extends Fragment implements View.OnClickListener {
+
+    TextView nombre, coodigo, categoria, marca, estante, existencia;
+    Bundle bundle=null;
+    productos pro=null;
+    CardView tarNombre, tarCategoria, tarMarca, tarEstante, tarExistencia;
+    ViewGroup con;
+    ArrayList<entidad> lista_categoria= new ArrayList<entidad>();
+    ArrayList<entidad> lista_marca= new ArrayList<entidad>();
+    ArrayList<entidad> lista_estante= new ArrayList<entidad>();
+    ArrayList<presentacion> lista= new ArrayList<presentacion>();
+    ArrayList<productos> list_pro= new ArrayList<productos>();
+    conexiones_base conex;
+    RequestQueue res;
+    EditText nombree;
+    String ipe, puertoe;
+    presentacion pres;
+    Integer existencias;
+    public static final int CANTIDADES=23;
+    singleton sesion=singleton.getInstance();
+    RecyclerView listaaa;
+    Boolean tablet=false;
+    conexiones_base conec;
+    adaptador ada;
+    ProgressBar progreso;
+
 
     public fragment_contenido() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_contenido.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_contenido newInstance(String param1, String param2) {
-        fragment_contenido fragment = new fragment_contenido();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        bundle=getArguments();
+        if (bundle!=null) {
+            pro=(productos) bundle.getSerializable("pro");
+            Activity activity = this.getActivity();
+
+            listaaa=activity.findViewById(R.id.lista_ele);
+            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(pro.getNombre());
+            }
+
+            if(listaaa!=null){
+                tablet=true;
+                progreso=activity.findViewById(R.id.progre);
+            }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_contenido, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_fragment_contenido, container, false);
+
+        con=container;
+        nombre=rootView.findViewById(R.id.txtNombre);
+        coodigo=rootView.findViewById(R.id.txtCodigo);
+        categoria=rootView.findViewById(R.id.txtCate);
+        marca=rootView.findViewById(R.id.txtMarc);
+        estante=rootView.findViewById(R.id.txtEstan);
+        existencia=rootView.findViewById(R.id.txtExiste);
+
+        nombre.setText(pro.getNombre());
+        coodigo.setText(pro.getCodigo());
+        categoria.setText(pro.getCategoria());
+        marca.setText(pro.getMarca());
+        estante.setText(pro.getEstante());
+        existencia.setText(pro.getExistencias());
+        existencias=Integer.parseInt(pro.getExistencias());
+
+        //Definiendo las tarjetas
+
+        tarNombre=rootView.findViewById(R.id.tarjetaNombre);
+        tarCategoria=rootView.findViewById(R.id.tarjetaCategoria);
+        tarMarca=rootView.findViewById(R.id.tarjetaMarca);
+        tarEstante=rootView.findViewById(R.id.tarjetaEstante);
+        tarExistencia=rootView.findViewById(R.id.tarjetaExistencia);
+
+
+        tarNombre.setOnClickListener(this);
+        tarCategoria.setOnClickListener(this);
+        tarMarca.setOnClickListener(this);
+        tarEstante.setOnClickListener(this);
+        tarExistencia.setOnClickListener(this);
+
+
+        //Retornando las listas de datos
+
+        conex=new conexiones_base("", con.getContext());
+        lista_categoria=conex.llenarSpinerCat();
+        lista_marca=conex.llenarSpinerMar();
+        lista_estante=conex.llenarSpinerEst();
+        accediendoDatos();
+        String url="http://"+ipe+":"+puertoe+"/servidor/presentaciones.php?pro="+pro.getId();
+        conexion(url);
+
+        /*try{
+            lista_productos lis=(lista_productos)getActivity();
+            RecyclerView llista=lis.lista;
+            Toast.makeText(con.getContext(),String.valueOf(llista.getAdapter().getItemCount()),Toast.LENGTH_LONG).show();
+
+        }catch (Exception e){
+        }*/
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+
+        switch (id){
+            case R.id.tarjetaNombre:{
+                ventanasDialogos(utilidades.DIALOGO_CAMBIO_NOMBRE, R.layout.dialogo_cambio_nombre);
+                break;
+            }
+
+            case R.id.tarjetaCategoria:{
+                ventanasDialogos(utilidades.DIALOGO_CAMBIO_CATEGORIA, R.layout.dialogo_cambio_categoria);
+                break;
+            }
+
+            case R.id.tarjetaMarca:{
+                ventanasDialogos(utilidades.DIALOGO_CAMBIO_MARCA,R.layout.dialogo_cambio_marca);
+                break;
+            }
+
+            case R.id.tarjetaEstante:{
+                ventanasDialogos(utilidades.DIALOGO_CAMBIO_ESTANTE, R.layout.dialogo_cambio_estante);
+                break;
+            }
+
+            case R.id.tarjetaExistencia:{
+                ventanasDialogos(utilidades.EXISTENCIAS, R.layout.dialogo_cambio_cantidades);
+                break;
+            }
+
         }
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==CANTIDADES){
+            if(resultCode==RESULT_OK){
+                existencia.setText(data.getStringExtra("res"));
+                conex.actualizandoDatos("4",data.getStringExtra("res"), pro.getId());
+            }
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void ventanasDialogos(int tv, int layout){
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(con.getContext());
+        View vista=getLayoutInflater().inflate(layout,null);
+        dialogo.setView(vista);
+        final AlertDialog dialog=dialogo.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        switch (tv){
+            case utilidades.DIALOGO_CAMBIO_NOMBRE:{
+                nombree=vista.findViewById(R.id.txtDia_Nombre_producto);
+                nombree.setText(nombre.getText());
+
+                Button btn=vista.findViewById(R.id.dia_btnCambiar);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String URL="http://"+ipe+":"+puertoe+"/servidor/actualizando_nombre.php";
+                        if(nombree.getText().toString().isEmpty()){
+                            Toast.makeText(con.getContext(),"No puedesde dejar en blanco este campo",Toast.LENGTH_LONG).show();
+                        }else{
+                            if(tablet){
+                                progreso.setVisibility(View.VISIBLE);
+                            }
+                            ejecuntandoServicio(URL, nombree.getText().toString(), dialog);
+                        }
+                    }
+                });
+
+
+                dialog.show();
+                break;
+            }
+
+            case utilidades.DIALOGO_CAMBIO_CATEGORIA:{
+                final Spinner categ=vista.findViewById(R.id.spinerCate);
+                Button btnIngreCate=vista.findViewById(R.id.dia_btnCambiarCat);
+                spinner_adaptador adapta= new spinner_adaptador(con.getContext(), lista_categoria);
+                categ.setAdapter(adapta);
+                categ.setSelection(colocarDato(Integer.parseInt(pro.getIdcateg()), lista_categoria));
+
+                btnIngreCate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        entidad en=(entidad) categ.getSelectedItem();
+                        conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog);
+                    }
+                });
+
+                dialog.show();
+                break;
+            }
+
+            case utilidades.DIALOGO_CAMBIO_MARCA:{
+                final Spinner mar=vista.findViewById(R.id.spinerMarca);
+                Button btnIngresa=vista.findViewById(R.id.btn_diag_marca);
+                spinner_adaptador adapta=new spinner_adaptador(con.getContext(), lista_marca);
+                mar.setAdapter(adapta);
+                mar.setSelection(colocarDato(Integer.parseInt(pro.getIdmarca()), lista_marca));
+
+                btnIngresa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        entidad en=(entidad) mar.getSelectedItem();
+                        conex.actualizandoDatos("2", en.getValor(), pro.getIdproducto(), marca, en.toString(), dialog);
+                    }
+                });
+
+                dialog.show();
+                break;
+            }
+
+            case utilidades.DIALOGO_CAMBIO_ESTANTE:{
+                final Spinner estan=vista.findViewById(R.id.spinerEstante);
+                Button btnIngresa=vista.findViewById(R.id.btn_diag_esta);
+                spinner_adaptador adapta= new spinner_adaptador(con.getContext(), lista_estante);
+                estan.setAdapter(adapta);
+                estan.setSelection(colocarDato(Integer.parseInt(pro.getIdestante()), lista_estante));
+
+                btnIngresa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        entidad en=(entidad)estan.getSelectedItem();
+                        conex.actualizandoDatos("3", en.getValor(), pro.getIdproducto(), estante, en.toString(), dialog);
+                    }
+                });
+
+                dialog.show();
+                break;
+            }
+
+            case utilidades.EXISTENCIAS:{
+                final Spinner prese=vista.findViewById(R.id.dial_spinner_prese);
+                Button btnAjustar=vista.findViewById(R.id.btn_dia_ajustar);
+                Button btnSumar=vista.findViewById(R.id.btn_dia_sumar);
+                final EditText txtCantidad=vista.findViewById(R.id.dia_cantidad);
+
+                spinner_adaptador_2 adapta= new spinner_adaptador_2(con.getContext(),lista);
+                prese.setAdapter(adapta);
+
+                btnAjustar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!mensaje(txtCantidad.getText().toString())){
+                        pres = (presentacion)prese.getSelectedItem();
+                        respuesta("ajustar", txtCantidad.getText().toString(),pres.getPresentacion(),true, dialog);
+                        }
+                    }
+                });
+
+                btnSumar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!mensaje(txtCantidad.getText().toString())){pres = (presentacion)prese.getSelectedItem();
+                            respuesta("sumar", txtCantidad.getText().toString(),pres.getPresentacion(),false, dialog);
+                        }
+                    }
+                });
+
+                dialog.show();
+                break;
+            }
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private boolean mensaje(String cantidad){
+        if(cantidad.isEmpty()){
+            Toast.makeText(con.getContext(),"La cantidad no puede quedar vacia", Toast.LENGTH_LONG).show();
+            return true;
+        }else{
+            return false;
+        }
     }
+
+    public void conexion(String URL) {
+        res = volleySingleton.getInstance(con.getContext()).getmRequesQueve();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject objeto=null;
+                String [][] datos=new String[response.length()][5];
+                for (int i=0;i<response.length();i++){
+                    try {
+                        objeto= response.getJSONObject(i);
+
+                        lista.add(new presentacion(objeto.getString("idpre"),
+                                objeto.getString("cantidad"),
+                                objeto.getString("precio"),
+                                objeto.getString("tipo"),
+                                objeto.getString("presentacion"),
+                                R.drawable.stock_32));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(con.getContext(), "No existen presentaciones", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(con.getContext(), "No hay presentaciones", Toast.LENGTH_LONG).show();
+            }
+        });
+        res.add(jsonArrayRequest);
+    }
+
+    private int colocarDato(int opcion, ArrayList<entidad> ent){
+        int index=0;
+        for (entidad enti: ent ){
+            int op=Integer.parseInt(enti.getValor());
+            if(op==opcion){
+                index=ent.indexOf(enti);
+            }
+        }
+        return index;
+    }
+
+    private void ejecuntandoServicio(String URL, final String nom, final androidx.appcompat.app.AlertDialog di){
+        res= volleySingleton.getInstance(con.getContext()).getmRequesQueve();
+
+        StringRequest respuesta=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(con.getContext(), "El campo se actualizo con exíto", Toast.LENGTH_LONG).show();
+                nombre.setText(nombree.getText().toString());
+                sesion.setActualiza(true);
+                di.cancel();
+                cargandoDatosLista();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(con.getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros= new HashMap<String, String>();
+                parametros.put("nombre",nom);
+                parametros.put("id", pro.getIdproducto());
+                return parametros;
+            }
+        };
+
+        res.add(respuesta);
+    }
+
+    private boolean accediendoDatos(){
+        SharedPreferences prefe= con.getContext().getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefe.edit();
+        if(prefe.getString("ip","")==null || prefe.getString("puerto","")==null){
+            Toast.makeText(con.getContext(),"No se encuentran datos de conexion", Toast.LENGTH_LONG).show();
+            return false;
+        }else{
+            ipe=prefe.getString("ip","");
+            puertoe=prefe.getString("puerto","");
+            return true;
+        }
+    }
+
+    private void respuesta(String tipo, final String canti, String prese, final boolean tipoO, final AlertDialog dia){
+
+        final mensaje_dialogo_by_jfuentes mensaje = new mensaje_dialogo_by_jfuentes(con.getContext(),
+                "Mensaje de confirmación",
+                "Deseas "+tipo+" "+canti+" "+prese+" de este producto");
+        mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tipoO){
+                    ajustandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
+                    dia.dismiss();
+                    mensaje.cerrar();
+                }else {
+                    sumandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
+                    dia.dismiss();
+                    mensaje.cerrar();
+                }
+            }
+        });
+
+        mensaje.getCancelar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(con.getContext(),"Operación cancelada", Toast.LENGTH_LONG).show();
+                mensaje.cerrar();
+            }
+        });
+
+    }
+
+    private void ajustandoCantidad(int inte, String ca){
+        float in=Float.parseFloat(ca);
+        Integer caI=inte;
+        float Total=in*caI;
+        int canv=(int)Total;
+
+        existencia.setText(String.valueOf(canv));
+        conex.actualizandoDatos("4",existencia.getText().toString(), pro.getId());
+
+    }
+
+    private void sumandoCantidad(int inte, String ca){
+        float in=Float.parseFloat(ca);
+        Integer caI=inte;
+        float Total=in*caI;
+        int canv=(int)Total+existencias;
+
+        existencia.setText(String.valueOf(canv));
+        conex.actualizandoDatos("4",existencia.getText().toString(), pro.getId());
+    }
+
+    private void cargandoDatosLista(){
+        if(tablet) {
+            final lista_productos actyList = (lista_productos) getActivity();
+
+            actyList.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    actyList.cargandoProductos();
+
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    progreso.setVisibility(View.GONE);
+                    actyList.cargandoAdaptador();
+
+                }
+            });
+        }
+
+
+    }
+
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/degradados_2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/info"
+            android:id="@+id/imagenMensaje"
+            android:padding="@dimen/padding_imagenes"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txtTitDialogo"
+            android:textAlignment="center"
+            android:textSize="@dimen/titulos"
+            android:textColor="@android:color/white"
+            android:id="@+id/txtTituloDialogo"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="@string/txtMensaDialogo"
+        android:textSize="@dimen/contenidos"
+        android:id="@+id/txtContenidoDialogo"
+        android:layout_margin="@dimen/margen_contenidos"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnAceptarDialogo"
+            android:textColor="@android:color/white"
+            android:background="@drawable/redondeo"
+            android:textAllCaps="false"
+            android:textSize="@dimen/btn1"
+            android:id="@+id/btnAceptarDialogo"
+            android:layout_margin="@dimen/margen_botones"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnCancelarDialogo"
+            android:textColor="@android:color/white"
+            android:background="@drawable/redondeo"
+            android:textAllCaps="false"
+            android:textSize="@dimen/btn1"
+            android:id="@+id/btnCancelarDialogo"
+            android:layout_margin="@dimen/margen_botones"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

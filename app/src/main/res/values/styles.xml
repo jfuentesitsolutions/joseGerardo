@@ -21,6 +21,12 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="tema_btn_2" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#f5f4f2</item>
+        <item name="colorPrimaryDark">#4D4D4B</item>
+        <item name="colorAccent">#039BE5</item>
+    </style>
+
     <style name="color_linea" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
@@ -43,6 +49,10 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="spinner" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 

@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogo_redondo_2">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dia_titu_marca"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textAlignment="center"
-        android:padding="10dp"/>
+        android:padding="15dp"
+        android:textColor="@android:color/white"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/spinerMarca"
-        android:spinnerMode="dialog"></Spinner>
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="10dp"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_diag_marca"
-        android:text="Cambiar marca"
+        android:text="Cambiar"
+        android:textSize="20dp"
+        android:textAllCaps="false"
         android:layout_gravity="center"
+        android:background="@drawable/redondeo"
+        android:padding="15dp"
         style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"/>
 </LinearLayout>

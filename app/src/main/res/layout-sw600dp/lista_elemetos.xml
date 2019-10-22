@@ -30,7 +30,7 @@
     tools:listitem="@layout/elemento_producto"/>
 
     <FrameLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:id="@+id/contenedor_elemento"/>
