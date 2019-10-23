@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@drawable/degradados_2"
+    android:padding="@dimen/btn1">
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tituloInforPre"
-        android:textSize="25sp"
+        android:textSize="@dimen/titulos"
         android:textAlignment="center"
-        android:paddingBottom="15dp"/>
+        android:padding="15dp"
+        android:textColor="@android:color/white" />
     
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@android:color/white"/>
 
     <ListView
         android:id="@+id/lista_productos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/elemento"/>
 </LinearLayout>

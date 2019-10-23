@@ -49,6 +49,50 @@ public class productos implements Serializable {
         return id;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setEstante(String estante) {
+        this.estante = estante;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setExistencias(String existencias) {
+        this.existencias = existencias;
+    }
+
+    public void setIdproducto(String idproducto) {
+        this.idproducto = idproducto;
+    }
+
+    public void setIdmarca(String idmarca) {
+        this.idmarca = idmarca;
+    }
+
+    public void setIdcateg(String idcateg) {
+        this.idcateg = idcateg;
+    }
+
+    public void setIdestante(String idestante) {
+        this.idestante = idestante;
+    }
+
     public productos(String nombre, String codigo, String categoria, String marca, String estante, String id, String existencias, String idproducto, String idmarca, String idcateg, String idestante) {
         this.nombre = nombre;
         this.codigo = codigo;

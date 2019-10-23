@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.jfuentes.josegerardo.Adaptador;
 import com.jfuentes.josegerardo.R;
 import com.jfuentes.josegerardo.adaptadores.spinner_adaptador;
 import com.jfuentes.josegerardo.adaptadores.spinner_adaptador_2;
@@ -63,7 +65,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
     TextView nombre, coodigo, categoria, marca, estante, existencia;
     Bundle bundle=null;
     productos pro=null;
-    CardView tarNombre, tarCategoria, tarMarca, tarEstante, tarExistencia;
+    CardView tarNombre, tarCategoria, tarMarca, tarEstante, tarExistencia, tarPresenta;
     ViewGroup con;
     ArrayList<entidad> lista_categoria= new ArrayList<entidad>();
     ArrayList<entidad> lista_marca= new ArrayList<entidad>();
@@ -80,9 +82,8 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
     singleton sesion=singleton.getInstance();
     RecyclerView listaaa;
     Boolean tablet=false;
-    conexiones_base conec;
-    adaptador ada;
     ProgressBar progreso;
+    CollapsingToolbarLayout appBarLayout;
 
 
     public fragment_contenido() {
@@ -98,7 +99,8 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
             Activity activity = this.getActivity();
 
             listaaa=activity.findViewById(R.id.lista_ele);
-            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+            appBarLayout = activity.findViewById(R.id.toolbar_layout);
+
             if (appBarLayout != null) {
                 appBarLayout.setTitle(pro.getNombre());
             }
@@ -137,6 +139,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         tarMarca=rootView.findViewById(R.id.tarjetaMarca);
         tarEstante=rootView.findViewById(R.id.tarjetaEstante);
         tarExistencia=rootView.findViewById(R.id.tarjetaExistencia);
+        tarPresenta=rootView.findViewById(R.id.tarjetaPresentaciones);
 
 
         tarNombre.setOnClickListener(this);
@@ -144,6 +147,12 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         tarMarca.setOnClickListener(this);
         tarEstante.setOnClickListener(this);
         tarExistencia.setOnClickListener(this);
+        if(tablet){
+            tarPresenta.setOnClickListener(this);
+        }else{
+            tarPresenta.setVisibility(View.GONE);
+        }
+
 
 
         //Retornando las listas de datos
@@ -197,6 +206,11 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                 break;
             }
 
+            case R.id.tarjetaPresentaciones:{
+                abrirVentanaDialogo();
+                break;
+            }
+
         }
     }
 
@@ -222,7 +236,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         switch (tv){
             case utilidades.DIALOGO_CAMBIO_NOMBRE:{
                 nombree=vista.findViewById(R.id.txtDia_Nombre_producto);
-                nombree.setText(nombre.getText());
+                nombree.setText(pro.getNombre());
 
                 Button btn=vista.findViewById(R.id.dia_btnCambiar);
                 btn.setOnClickListener(new View.OnClickListener() {
@@ -256,7 +270,15 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(View view) {
                         entidad en=(entidad) categ.getSelectedItem();
-                        conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog);
+                        pro.setIdcateg(en.getValor());
+                        if(tablet){
+                            progreso.setVisibility(View.VISIBLE);
+                            conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog, true, getActivity(), progreso);
+                        }else{
+                            conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog, false, null, null);
+                        }
+
+
                     }
                 });
 
@@ -275,7 +297,15 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
                         entidad en=(entidad) mar.getSelectedItem();
-                        conex.actualizandoDatos("2", en.getValor(), pro.getIdproducto(), marca, en.toString(), dialog);
+                        pro.setIdmarca(en.getValor());
+
+                        if(tablet){
+                            progreso.setVisibility(View.VISIBLE);
+                            conex.actualizandoDatos("2", en.getValor(), pro.getIdproducto(), marca, en.toString(), dialog,true, getActivity(), progreso);
+                        }else{
+                            conex.actualizandoDatos("2", en.getValor(), pro.getIdproducto(), marca, en.toString(), dialog,false, null,null);
+                        }
+
                     }
                 });
 
@@ -294,7 +324,15 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
                         entidad en=(entidad)estan.getSelectedItem();
-                        conex.actualizandoDatos("3", en.getValor(), pro.getIdproducto(), estante, en.toString(), dialog);
+                        pro.setIdestante(en.getValor());
+
+                        if(tablet){
+                            progreso.setVisibility(View.VISIBLE);
+                            conex.actualizandoDatos("3", en.getValor(), pro.getIdproducto(), estante, en.toString(), dialog, true, getActivity(),progreso);
+                        }else{
+                            conex.actualizandoDatos("3", en.getValor(), pro.getIdproducto(), estante, en.toString(), dialog, false, null,null);
+                        }
+
                     }
                 });
 
@@ -316,6 +354,9 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     public void onClick(View v) {
                         if(!mensaje(txtCantidad.getText().toString())){
                         pres = (presentacion)prese.getSelectedItem();
+                            if(tablet){
+                                progreso.setVisibility(View.VISIBLE);
+                            }
                         respuesta("ajustar", txtCantidad.getText().toString(),pres.getPresentacion(),true, dialog);
                         }
                     }
@@ -324,8 +365,12 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                 btnSumar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!mensaje(txtCantidad.getText().toString())){pres = (presentacion)prese.getSelectedItem();
-                            respuesta("sumar", txtCantidad.getText().toString(),pres.getPresentacion(),false, dialog);
+                        if(!mensaje(txtCantidad.getText().toString())){
+                            pres = (presentacion)prese.getSelectedItem();
+                            if(tablet){
+                                progreso.setVisibility(View.VISIBLE);
+                            }
+                        respuesta("sumar", txtCantidad.getText().toString(),pres.getPresentacion(),false, dialog);
                         }
                     }
                 });
@@ -399,6 +444,11 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
             public void onResponse(String response) {
                 Toast.makeText(con.getContext(), "El campo se actualizo con exíto", Toast.LENGTH_LONG).show();
                 nombre.setText(nombree.getText().toString());
+                pro.setNombre(nombree.getText().toString());
+                if(appBarLayout!=null){
+                    appBarLayout.setTitle(nombree.getText());
+                }
+
                 sesion.setActualiza(true);
                 di.cancel();
                 cargandoDatosLista();
@@ -446,10 +496,12 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     ajustandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
                     dia.dismiss();
                     mensaje.cerrar();
+                    cargandoDatosLista();
                 }else {
                     sumandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
                     dia.dismiss();
                     mensaje.cerrar();
+                    cargandoDatosLista();
                 }
             }
         });
@@ -507,8 +559,20 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                 }
             });
         }
+    }
 
+    private void abrirVentanaDialogo(){
 
+        AlertDialog.Builder mBuilder= new AlertDialog.Builder(con.getContext());
+        View mView=getLayoutInflater().inflate(R.layout.dialogo_presentaciones, null);
+
+        ListView listaa=mView.findViewById(R.id.lista_productos) ;
+        Adaptador adap=new Adaptador(con.getContext(), lista);
+        listaa.setAdapter(adap);
+
+        mBuilder.setView(mView);
+        AlertDialog dialog= mBuilder.create();
+        dialog.show();
     }
 
 }

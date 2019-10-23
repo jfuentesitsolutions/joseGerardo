@@ -271,7 +271,7 @@ public class info_producto extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         entidad en=(entidad) categ.getSelectedItem();
-                        conex.actualizandoDatos("1", en.getValor(), idpro, cate, en.toString(), dia);
+                        //conex.actualizandoDatos("1", en.getValor(), idpro, cate, en.toString(), dia);
                     }
                 });
 
@@ -292,7 +292,7 @@ public class info_producto extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         entidad en=(entidad) mar.getSelectedItem();
-                        conex.actualizandoDatos("2", en.getValor(), idpro, marca, en.toString(), dia);
+                        //conex.actualizandoDatos("2", en.getValor(), idpro, marca, en.toString(), dia);
                     }
                 });
 
@@ -314,7 +314,7 @@ public class info_producto extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         entidad en=(entidad) estan.getSelectedItem();
-                        conex.actualizandoDatos("3", en.getValor(), idpro, esta, en.toString(), dia);
+                        //conex.actualizandoDatos("3", en.getValor(), idpro, esta, en.toString(), dia);
                     }
                 });
 

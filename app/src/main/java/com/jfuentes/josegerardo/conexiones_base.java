@@ -1,11 +1,15 @@
 package com.jfuentes.josegerardo;
 
 import androidx.appcompat.app.AlertDialog;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.jfuentes.josegerardo.clases.entidad;
+import com.jfuentes.josegerardo.maestro_detalle_productos.lista_productos;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -262,7 +267,7 @@ public class conexiones_base {
         return lista_E;
     }
 
-    public void actualizandoDatos(final String opcion, final String ele, final String id, final TextView tex, final String cate, final AlertDialog aler){
+    public void actualizandoDatos(final String opcion, final String ele, final String id, final TextView tex, final String cate, final AlertDialog aler, final boolean tablet, final Activity acti, final ProgressBar pro){
         accediendoDatos();
         String URL="http://"+ipe+":"+puertoe+"/servidor/actualizando_datos.php";
 
@@ -276,6 +281,7 @@ public class conexiones_base {
                 tex.setText(cate);
                 sesio.setActualiza(true);
                 aler.cancel();
+                cargandoDatosLista(tablet, acti, pro);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -292,6 +298,30 @@ public class conexiones_base {
             }
         };
         res.add(respuesta);
+    }
+
+    private void cargandoDatosLista(boolean tablet, Activity activity, final ProgressBar progreso){
+        if(tablet) {
+            final lista_productos actyList = (lista_productos) activity;
+
+            actyList.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    actyList.cargandoProductos();
+
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    progreso.setVisibility(View.GONE);
+                    actyList.cargandoAdaptador();
+
+                }
+            });
+        }
     }
 
     public void actualizandoDatos(final String opcion, final String ele, final String id){
