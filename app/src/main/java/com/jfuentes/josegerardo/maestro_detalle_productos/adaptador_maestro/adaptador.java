@@ -51,7 +51,7 @@ public class adaptador extends RecyclerView.Adapter<ViewHolder> {
                 intent.putExtras(bundle);
 
                 context.startActivity(intent);
-                ((Activity)context).finish();
+                //((Activity)context).finish();
             }
 
         }

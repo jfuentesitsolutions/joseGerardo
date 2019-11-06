@@ -11,13 +11,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,35 +24,52 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.jfuentes.josegerardo.clases.entidades.entity;
+import com.jfuentes.josegerardo.clases.entidades.presentaciones;
+import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.maestro_detalle_productos.contenido_elemento;
 import com.jfuentes.josegerardo.maestro_detalle_productos.lista_productos;
+import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Console;
-
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    singleton sesio=singleton.getInstance();
     RequestQueue res;
-    TextView nombre;
-    ImageButton bu, usu, pro;
+    ImageButton bu, usu, estan;
     String ipe="", puertoe="";
     Intent intent;
+    SharedPreferences prefe;
+    ArrayList<entity> lista;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        conexiones_base base= new conexiones_base(getApplication());
+        String[] va={"Hola","1","2","Buenas"};
+        String url= null;
+        try {
+            url = conexiones_base.sentencia(new presentaciones(), base.getIpe(), base.getPuertoe(), utilidades.REGISTROS,va);
+            Log.d("evento",url);
+            lista=base.extraer(url,utilidades.PRESENTACIONES);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
         setContentView(R.layout.activity_main);
 
         usu=findViewById(R.id.imgBuscar);
         bu=findViewById(R.id.imgBuscar2);
+        estan=findViewById(R.id.imgEstantes);
 
         usu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 abrirVentanaDialogo();
+            }
+        });
+
+        estan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(getApplicationContext(),lista_estantes.class);
+                startActivity(intent);
             }
         });
 
@@ -140,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void quitarDatosPersonales(){
+        prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefe.edit();
+        editor.putString("usu", "");
+        editor.putString("contra", "");
+        editor.putBoolean("check", false);
+        editor.commit();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -153,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         }else if(id==R.id.btnCerrarS){
             intent=new Intent(this, loggin.class);
             startActivity(intent);
+            quitarDatosPersonales();
             this.finish();
         }
         return super.onOptionsItemSelected(item);
@@ -178,23 +212,12 @@ public class MainActivity extends AppCompatActivity {
                             objeto.getString("categoria"),
                             objeto.getString("marca"),
                             objeto.getString("estante"),
-                            objeto.getString("existencias"),
                             objeto.getString("id"),
+                            objeto.getString("exis"),
                             objeto.getString("id_pro"),
                             objeto.getString("idcat"),
                             objeto.getString("idmar"),
                             objeto.getString("idest"));
-
-                   /* sesio.setProducto(objeto.getString("producto"));
-                    sesio.setCodigo(objeto.getString("codigo"));
-                    sesio.setCategoria(objeto.getString("categoria"));
-                    sesio.setMarca(objeto.getString("marca"));
-                    sesio.setEstante(objeto.getString("estante"));
-                    sesio.setExistencia(objeto.getString("existencias"));
-                    sesio.setId(objeto.getString("id"));
-                    sesio.setIdcategoria(objeto.getString("idcat"));
-                    sesio.setId_marca(objeto.getString("idmar"));
-                    sesio.setId_estante(objeto.getString("idest"));*/
 
                    Bundle bundle= new Bundle();
                    bundle.putSerializable("producto",producto);
@@ -207,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "hola"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -223,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private boolean accediendoDatos(){
         SharedPreferences prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=prefe.edit();
@@ -234,5 +258,27 @@ public class MainActivity extends AppCompatActivity {
             puertoe=prefe.getString("puerto","");
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"Desea salir de la aplicación",
+                "Si continua saldra de la aplicación");
+
+        mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+                mensaje.cerrar();
+            }
+        });
+
+        mensaje.getCancelar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mensaje.cerrar();
+            }
+        });
     }
 }

@@ -19,6 +19,7 @@ public final class singleton {
     private String[][] data;
     Boolean actualiza=false;
 
+
     public String getIdcategoria() {
         return idcategoria;
     }

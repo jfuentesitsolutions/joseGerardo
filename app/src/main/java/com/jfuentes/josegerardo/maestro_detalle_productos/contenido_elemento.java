@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.jfuentes.josegerardo.Adaptador;
+import com.jfuentes.josegerardo.MainActivity;
 import com.jfuentes.josegerardo.R;
 import com.jfuentes.josegerardo.info_producto;
 import com.jfuentes.josegerardo.presentacion;
@@ -42,14 +45,17 @@ public class contenido_elemento extends AppCompatActivity {
     ArrayList<presentacion> lista= new ArrayList<presentacion>();
     RequestQueue res;
     String ipe, puertoe;
+    singleton sesion=singleton.getInstance();
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent=new Intent(this, lista_productos.class);
-            startActivity(intent);
-            finish();
+            if(!contenido){
+                navigateUpTo(new Intent(this, lista_productos.class));
+            }else{
+                navigateUpTo(new Intent(this, MainActivity.class));
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -73,15 +79,12 @@ public class contenido_elemento extends AppCompatActivity {
 
 
 
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
             bundle = getIntent().getExtras();
             Bundle arguments= new Bundle();
             productos pro=null;
@@ -103,11 +106,6 @@ public class contenido_elemento extends AppCompatActivity {
             String url="http://"+ipe+":"+puertoe+"/servidor/presentaciones.php?pro="+pro.getId();
             conexion(url);
         }
-
-
-
-
-
     }
 
     @Override
@@ -115,11 +113,11 @@ public class contenido_elemento extends AppCompatActivity {
         super.onBackPressed();
 
         if(!contenido){
-            Intent intent=new Intent(this, lista_productos.class);
-            startActivity(intent);
-            finish();
+            if(sesion.getActualiza()){
+                navigateUpTo(new Intent(this, lista_productos.class));
+                sesion.setActualiza(false);
+            }
         }
-
     }
 
     public void conexion(String URL) {
@@ -164,6 +162,7 @@ public class contenido_elemento extends AppCompatActivity {
 
         mBuilder.setView(mView);
         AlertDialog dialog= mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

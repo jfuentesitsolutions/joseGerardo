@@ -108,6 +108,16 @@
 
     </LinearLayout>
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar datos"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:id="@+id/chkGuarda"
+            />
 
     <Button
         android:id="@+id/btnIngresar"

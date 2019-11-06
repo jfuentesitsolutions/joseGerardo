@@ -496,11 +496,13 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                     ajustandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
                     dia.dismiss();
                     mensaje.cerrar();
+                    sesion.setActualiza(true);
                     cargandoDatosLista();
                 }else {
                     sumandoCantidad(Integer.parseInt(pres.getCantidad()), canti);
                     dia.dismiss();
                     mensaje.cerrar();
+                    sesion.setActualiza(true);
                     cargandoDatosLista();
                 }
             }
@@ -572,6 +574,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
 
         mBuilder.setView(mView);
         AlertDialog dialog= mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

@@ -68,8 +68,6 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         cargandoProductos();
         new tarea().execute(2);
 
-
-
     }
 
     public void cargandoProductos(){

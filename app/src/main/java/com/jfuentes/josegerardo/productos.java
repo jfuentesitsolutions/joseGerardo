@@ -93,7 +93,17 @@ public class productos implements Serializable {
         this.idestante = idestante;
     }
 
-    public productos(String nombre, String codigo, String categoria, String marca, String estante, String id, String existencias, String idproducto, String idmarca, String idcateg, String idestante) {
+    public productos(String nombre,
+                     String codigo,
+                     String categoria,
+                     String marca,
+                     String estante,
+                     String id,
+                     String existencias,
+                     String idproducto,
+                     String idmarca,
+                     String idcateg,
+                     String idestante) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.categoria = categoria;

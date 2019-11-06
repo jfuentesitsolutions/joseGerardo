@@ -43,10 +43,10 @@ public class Adaptador extends BaseAdapter {
         presentacion item=(presentacion) getItem(i);
         view=LayoutInflater.from(contexto).inflate(R.layout.elemento, null);
 
-        TextView nombre=(TextView)view.findViewById(R.id.txtNombrePre);
-        TextView canti=(TextView)view.findViewById(R.id.txtCantidad);
-        TextView tpre=(TextView)view.findViewById(R.id.txtTipoP);
-        TextView pre=(TextView)view.findViewById(R.id.txtPrecio);
+        TextView nombre=view.findViewById(R.id.txtNombrePre);
+        TextView canti=view.findViewById(R.id.txtCantidad);
+        TextView tpre=view.findViewById(R.id.txtTipoP);
+        TextView pre=view.findViewById(R.id.txtPrecio);
 
         nombre.setText(item.getPresentacion());
         canti.setText(item.getCantidad());

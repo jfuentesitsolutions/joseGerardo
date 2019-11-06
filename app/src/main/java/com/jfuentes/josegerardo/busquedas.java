@@ -313,7 +313,6 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
         return true;
     }
 
-
     private ArrayList<productos> filtro(ArrayList<productos> pro, String texto){
         ArrayList<productos>Lsta= new ArrayList<>();
         try {

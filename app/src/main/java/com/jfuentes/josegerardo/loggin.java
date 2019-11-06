@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.material.textfield.TextInputLayout;
+import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,14 +35,14 @@ import eu.inmite.android.lib.validations.form.annotations.NotEmpty;
 import eu.inmite.android.lib.validations.form.callback.SimpleErrorPopupCallback;
 
 public class loggin extends AppCompatActivity implements View.OnClickListener {
-    conexiones_base cone;
     Button btnIngresa;
-
     EditText usuario, contra;
+    CheckBox guarda;
     singleton sesio=singleton.getInstance();
     RequestQueue res;
     ImageView configurar;
-    String ipe="", puertoe="";
+    String ipe="", puertoe="", contraa="", usua="";
+    SharedPreferences prefe;
 
     TextInputLayout usu,co;
 
@@ -54,6 +56,7 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
         contra=findViewById(R.id.txtContra);
         btnIngresa=findViewById(R.id.btnIngresar);
         configurar=findViewById(R.id.imgConf);
+        guarda=findViewById(R.id.chkGuarda);
 
         usu=findViewById(R.id.layouU);
         co=findViewById(R.id.layouC);
@@ -63,6 +66,15 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
         btnIngresa.setOnClickListener(this);
 
         configurar.setOnClickListener(this);
+
+        if(accediendoDatos()){
+           if(accediendoDatosPersonales()){
+               String url = "http://" + ipe + ":" + puertoe + "/servidor/validacion_usuarios.php?usu=" + usua + "&con=" +contraa;
+               conexion(url);
+               usuario.setText(usua);
+               contra.setText(contraa);
+           }
+        }
     }
 
     public void onClick(View view) {
@@ -70,6 +82,7 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
             case R.id.btnIngresar:{
                 if(accediendoDatos()){
                     if(!validar()) {
+
                         String url = "http://" + ipe + ":" + puertoe + "/servidor/validacion_usuarios.php?usu=" + usuario.getText() + "&con=" + contra.getText();
                         conexion(url);
                     }
@@ -85,8 +98,7 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
     }
 
     private boolean accediendoDatos(){
-        SharedPreferences prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefe.edit();
+        prefe = getSharedPreferences("config", Context.MODE_PRIVATE);
         if(prefe.getString("ip","")==null || prefe.getString("puerto","")==null){
             Toast.makeText(getApplicationContext(),"No se encuentran datos de conexion", Toast.LENGTH_LONG).show();
             return false;
@@ -97,8 +109,21 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    private boolean accediendoDatosPersonales(){
+        prefe = getSharedPreferences("config", Context.MODE_PRIVATE);
+        if(prefe.getString("usu","")==null || prefe.getString("contra","")==null){
+            return false;
+        }else{
+            usua=prefe.getString("usu","");
+            contraa=prefe.getString("contra","");
+            guarda.setChecked(prefe.getBoolean("check", false));
+            return true;
+
+        }
+    }
+
     private void guardarDatos(String ip, String puer){
-        SharedPreferences prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
+        prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=prefe.edit();
         editor.putString("ip", ip);
         editor.putString("puerto", puer);
@@ -106,14 +131,23 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
         Toast.makeText(loggin.this, "Datos almacenados",Toast.LENGTH_LONG).show();
     }
 
+    private void guardarDatosPersonales(String usu, String cont, Boolean chk){
+        prefe= getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefe.edit();
+        editor.putString("usu", usu);
+        editor.putString("contra", cont);
+        editor.putBoolean("check", chk);
+        editor.commit();
+    }
+
     private void abrirVentanaDialogo(){
         accediendoDatos();
 
         final AlertDialog.Builder mBuilder= new AlertDialog.Builder(loggin.this);
         View mView=getLayoutInflater().inflate(R.layout.dialogo_configuracion, null);
-        final EditText ip=(EditText)mView.findViewById(R.id.txtIp);
-        final EditText puer=(EditText)mView.findViewById(R.id.txtPuer);
-        Button gra=(Button)mView.findViewById(R.id.btnGuardar);
+        final EditText ip=mView.findViewById(R.id.txtIp);
+        final EditText puer=mView.findViewById(R.id.txtPuer);
+        Button gra=mView.findViewById(R.id.btnGuardar);
 
         mBuilder.setView(mView);
         final AlertDialog dialog= mBuilder.create();
@@ -157,6 +191,11 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
                         JSONObject objeto = response.getJSONObject(0);
                         variable = objeto.getString("usuario");
 
+                        if(guarda.isChecked()){
+                            guardarDatosPersonales(usuario.getText().toString(), contra.getText().toString(), true);
+                        }else{
+                            guardarDatosPersonales("","", false);
+                        }
                         Intent intent = new Intent(loggin.this, MainActivity.class);
                         startActivity(intent);
                         sesio.setUsuario(variable);
@@ -201,5 +240,24 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"Desea salir de la aplicación",
+                "Si continua saldra de la aplicación");
 
+        mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+                mensaje.cerrar();
+            }
+        });
+
+        mensaje.getCancelar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mensaje.cerrar();
+            }
+        });
+    }
 }
