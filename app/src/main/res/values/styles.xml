@@ -27,6 +27,7 @@
         <item name="colorAccent">#039BE5</item>
     </style>
 
+
     <style name="color_linea" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>

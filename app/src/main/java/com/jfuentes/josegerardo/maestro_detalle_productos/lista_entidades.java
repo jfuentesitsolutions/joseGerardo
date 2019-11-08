@@ -1,6 +1,8 @@
 package com.jfuentes.josegerardo.maestro_detalle_productos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -16,63 +18,47 @@ import android.widget.SearchView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.jfuentes.josegerardo.R;
+import com.jfuentes.josegerardo.clases.entidades.entity;
+import com.jfuentes.josegerardo.clases.entidades.estantes;
+import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
+import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adapatador_entidad;
 import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
 import com.jfuentes.josegerardo.productos;
 
-
 import java.util.ArrayList;
 
-public class lista_productos extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class lista_entidades extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private boolean panelDos;
-    public ArrayList<productos> lista_P= new ArrayList<productos>();
-    public RecyclerView lista;
+    FloatingActionButton fab;
+    public ArrayList<entity> lista_P= new ArrayList<entity>();
+    RecyclerView lista_entidad;
     conexiones_base conec;
-    public adaptador ada;
+    private adapatador_entidad ada;
     ProgressBar progreso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_productos);
+        setContentView(R.layout.activity_lista_entidades);
 
-        progreso= findViewById(R.id.progre);
-        this.setTitle("Listado de productos");
+        progreso= findViewById(R.id.progre_2);
+        fab=findViewById(R.id.btnAgregaEntidad);
 
-        FloatingActionButton fab = findViewById(R.id.btnAgregaProducto);
+        this.setTitle(getIntent().getStringExtra("titulo"));
+
         fab.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, String.valueOf(ada.getItemCount()), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "HOla buenas", Snackbar.LENGTH_LONG).setAction("Hola", null).show();
             }
         });
 
-        if (findViewById(R.id.contenedor_elemento) != null) {
-            panelDos = true;
-        }
+        lista_entidad=findViewById(R.id.lista_entidades);
 
-        lista=findViewById(R.id.lista_ele);
-        cargandoProductos();
         new tarea().execute(2);
-
     }
 
-    public void cargandoProductos(){
-        lista_P.clear();
-        conec=new conexiones_base("",this.getApplicationContext());
-        lista_P=conec.todosLosProductos("");
-
-        Log.d("EVEN", String.valueOf(lista_P.size()));
-    }
-
-    public void cargandoAdaptador(){
-        ada=new adaptador(lista_productos.this, lista_P, panelDos);
-        ada.notifyDataSetChanged();
-        lista.setAdapter(ada);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,7 +80,6 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
                 return true;
             }
-
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 ada.setFiltro(lista_P);
@@ -105,12 +90,12 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         return true;
     }
 
-    private ArrayList<productos> filtro(ArrayList<productos> pro, String texto){
-        ArrayList<productos>Lsta= new ArrayList<>();
+    private ArrayList<entity> filtro(ArrayList<entity> enti, String texto){
+        ArrayList<entity>Lsta= new ArrayList<>();
         try {
             texto=texto.toLowerCase();
-            for (productos proo: pro){
-                String nombre=proo.getNombre().toLowerCase();
+            for (entity proo: enti){
+                String nombre=proo.nombre().toLowerCase();
                 if(nombre.contains(texto)){
                     Lsta.add(proo);
                 }
@@ -123,36 +108,44 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
     }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
+    public boolean onQueryTextSubmit(String s) {
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
         try {
-            ArrayList<productos>lista=filtro(lista_P, s);
-            ((adaptador) ada).setFiltro(lista);
+            ArrayList<entity>lista=filtro(lista_P, s);
+            ada.setFiltro(lista);
+            Log.d("Evento",String.valueOf(lista.size()));
 
         }catch (Exception e){
             e.printStackTrace();
         }
-        Log.d("Evento","Evento");
+
         return true;
     }
 
-    class tarea extends AsyncTask<Integer, Integer, ArrayList<productos>>{
+    class tarea extends AsyncTask<Integer, Integer, ArrayList<entity>> {
 
         @Override
-        protected ArrayList<productos> doInBackground(Integer... integers) {
-                lista_P.clear();
-                conec=new conexiones_base("",lista_productos.this);
-                lista_P=conec.todosLosProductos("");
+        protected ArrayList<entity> doInBackground(Integer... integers) {
+            lista_P.clear();
+            conec=new conexiones_base("",getApplicationContext());
+            String[] va={"Hola","1","2","Buenas"};
+            String url= null;
+            try {
+                url = conexiones_base.sentencia(new estantes(), conec.getIpe(), conec.getPuertoe(), utilidades.REGISTROS,va);
+                lista_P=conec.extraer(url, utilidades.ESTANTES);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             return lista_P;
         }
@@ -167,13 +160,13 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         }
 
         @Override
-        protected void onPostExecute(ArrayList<productos> productos) {
-            super.onPostExecute(productos);
-
+        protected void onPostExecute(ArrayList<entity> entidad) {
+            super.onPostExecute(entidad);
+            ada=new adapatador_entidad(utilidades.ESTANTES, getApplicationContext(), lista_P);
+            ada.notifyDataSetChanged();
+            lista_entidad.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            lista_entidad.setAdapter(ada);
             progreso.setVisibility(View.GONE);
-            ada=new adaptador(lista_productos.this, productos, panelDos);
-            lista.setAdapter(ada);
-
 
         }
 
@@ -181,10 +174,5 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

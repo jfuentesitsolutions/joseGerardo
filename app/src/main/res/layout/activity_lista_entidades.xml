@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".maestro_detalle_productos.lista_productos"
+    tools:context=".maestro_detalle_productos.lista_entidades"
     android:background="#ECE8E8">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_lista"
+        android:id="@+id/frame_lista_entidades"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <include layout="@layout/lista_elemetos"/>
+        <include layout="@layout/lista_entidades"/>
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAgregaProducto"
+        android:id="@+id/btnAgregaEntidad"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/add"
@@ -30,12 +28,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:id="@+id/progre"
+        android:id="@+id/progre_2"
         android:indeterminateTint="@color/colorPrimary"
         />
-
-
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

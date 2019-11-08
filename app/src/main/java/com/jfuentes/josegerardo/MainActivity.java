@@ -30,6 +30,7 @@ import com.jfuentes.josegerardo.clases.entidades.entity;
 import com.jfuentes.josegerardo.clases.entidades.presentaciones;
 import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.maestro_detalle_productos.contenido_elemento;
+import com.jfuentes.josegerardo.maestro_detalle_productos.lista_entidades;
 import com.jfuentes.josegerardo.maestro_detalle_productos.lista_productos;
 import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
 
@@ -89,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
         estan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(getApplicationContext(),lista_estantes.class);
-                startActivity(intent);
+                Intent intento= new Intent(MainActivity.this, lista_entidades.class);
+                intento.putExtra("titulo", "Lista de estantes");
+                startActivity(intento);
             }
         });
 

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".lista_estantes"></activity>
+        <activity android:name=".maestro_detalle_productos.lista_entidades"></activity>
         <activity
             android:name=".maestro_detalle_productos.contenido_elemento"
             android:theme="@style/AppTheme.NoActionBar" />

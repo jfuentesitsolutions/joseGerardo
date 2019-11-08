@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="5dp">
+    android:layout_margin="10dp"
+    android:elevation="6dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="6dp"
         app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
         >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="#039BE5"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/img_entidad"
+                android:src="@drawable/stock"
+                android:padding="5dp"
+                android:background="@drawable/degradados_2"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txtEstantes"
                 android:text="Prueba"
-                android:textAlignment="center"/>
+                android:textSize="22sp"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
