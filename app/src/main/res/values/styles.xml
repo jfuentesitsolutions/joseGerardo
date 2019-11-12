@@ -9,6 +9,22 @@
         <item name="editTextColor">@color/colorText</item>
     </style>
 
+    <style name="color_mango" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/mango</item>
+        <item name="colorPrimaryDark">@color/amarillo_mango</item>
+        <item name="colorAccent">@color/mango_maduro</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
+    <style name="color_mango.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/mango</item>
+        <item name="colorPrimaryDark">@color/amarillo_mango</item>
+        <item name="colorAccent">@color/mango_maduro</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
     <style name="tema_login" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#f5f4f2</item>
         <item name="colorPrimaryDark">#4D4D4B</item>

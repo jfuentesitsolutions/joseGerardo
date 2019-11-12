@@ -21,15 +21,13 @@
         android:id="@+id/btnAgregaEntidad"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/add"
-        android:theme="@style/tema_btn"/>
+        android:src="@drawable/add"/>
 
     <ProgressBar
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:id="@+id/progre_2"
-        android:indeterminateTint="@color/colorPrimary"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

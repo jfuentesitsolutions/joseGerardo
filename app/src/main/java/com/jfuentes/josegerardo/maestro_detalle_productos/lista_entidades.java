@@ -2,7 +2,6 @@ package com.jfuentes.josegerardo.maestro_detalle_productos;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -23,8 +22,6 @@ import com.jfuentes.josegerardo.clases.entidades.estantes;
 import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
 import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adapatador_entidad;
-import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
-import com.jfuentes.josegerardo.productos;
 
 import java.util.ArrayList;
 
@@ -39,6 +36,7 @@ public class lista_entidades extends AppCompatActivity implements SearchView.OnQ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        colocarEstilo(getIntent().getStringExtra("tema"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_entidades);
 
@@ -46,19 +44,25 @@ public class lista_entidades extends AppCompatActivity implements SearchView.OnQ
         fab=findViewById(R.id.btnAgregaEntidad);
 
         this.setTitle(getIntent().getStringExtra("titulo"));
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "HOla buenas", Snackbar.LENGTH_LONG).setAction("Hola", null).show();
+                Snackbar.make(view, "Hola buenas", Snackbar.LENGTH_LONG).setAction("Hola", null).show();
             }
         });
 
         lista_entidad=findViewById(R.id.lista_entidades);
-
         new tarea().execute(2);
     }
 
+    private void colocarEstilo(String tema){
+       switch (tema){
+           case "estantes":{
+               setTheme(R.style.color_mango);
+               break;
+           }
+       }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,7 +166,8 @@ public class lista_entidades extends AppCompatActivity implements SearchView.OnQ
         @Override
         protected void onPostExecute(ArrayList<entity> entidad) {
             super.onPostExecute(entidad);
-            ada=new adapatador_entidad(utilidades.ESTANTES, getApplicationContext(), lista_P);
+            ada=new adapatador_entidad(utilidades.ESTANTES, getApplicationContext(), lista_P, lista_entidades.this,
+                    R.drawable.stock, R.drawable.degradados_3);
             ada.notifyDataSetChanged();
             lista_entidad.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
             lista_entidad.setAdapter(ada);

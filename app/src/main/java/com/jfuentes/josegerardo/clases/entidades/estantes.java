@@ -1,6 +1,8 @@
 package com.jfuentes.josegerardo.clases.entidades;
 
-public class estantes implements entity{
+import java.io.Serializable;
+
+public class estantes implements entity {
     private String id, nombre, descripcion;
 
     public estantes(String id, String nombre, String descripcion) {

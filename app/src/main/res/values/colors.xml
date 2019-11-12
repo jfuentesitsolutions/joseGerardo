@@ -10,5 +10,10 @@
     <color name="ColorAccent2">#FFFFFF</color>
     <color name="colorText2">#ffffff</color>
 
+    <color name="mango">#FFB74D</color>
+    <color name="amarillo_mango">#FFD54F</color>
+    <color name="mango_maduro">#FF8F00</color>
+    <color name="blanco">#ffffff</color>
+
 
 </resources>

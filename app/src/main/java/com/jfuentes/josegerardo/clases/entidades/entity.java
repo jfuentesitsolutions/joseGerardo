@@ -1,6 +1,8 @@
 package com.jfuentes.josegerardo.clases.entidades;
 
-public interface entity {
+import java.io.Serializable;
+
+public interface entity extends Serializable {
     String nombre();
     String descripcion();
     String id();

@@ -77,8 +77,6 @@ public class contenido_elemento extends AppCompatActivity {
             }
         });
 
-
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -97,7 +95,6 @@ public class contenido_elemento extends AppCompatActivity {
 
             fragment_contenido fragment = new fragment_contenido();
             fragment.setArguments(arguments);
-
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
                     .commit();

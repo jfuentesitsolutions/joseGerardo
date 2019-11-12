@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intento= new Intent(MainActivity.this, lista_entidades.class);
                 intento.putExtra("titulo", "Lista de estantes");
+                intento.putExtra("tema",utilidades.ESTANTES);
                 startActivity(intento);
             }
         });

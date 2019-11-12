@@ -10,6 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tar_entidad"
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false">
@@ -24,8 +25,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/img_entidad"
                 android:src="@drawable/stock"
-                android:padding="5dp"
-                android:background="@drawable/degradados_2"/>
+                android:padding="5dp" />
 
             <TextView
                 android:layout_width="match_parent"

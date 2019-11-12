@@ -78,6 +78,7 @@ public class adaptador_productos extends RecyclerView.Adapter<adaptador_producto
             sesion.setId_marca(idmarc);
             sesion.setId_estante(idesta);
             contexto.startActivity(intent);
+
         }
 
     }

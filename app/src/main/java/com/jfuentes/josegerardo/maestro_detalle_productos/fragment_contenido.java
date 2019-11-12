@@ -165,14 +165,6 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         String url="http://"+ipe+":"+puertoe+"/servidor/presentaciones.php?pro="+pro.getId();
         conexion(url);
 
-        /*try{
-            lista_productos lis=(lista_productos)getActivity();
-            RecyclerView llista=lis.lista;
-            Toast.makeText(con.getContext(),String.valueOf(llista.getAdapter().getItemCount()),Toast.LENGTH_LONG).show();
-
-        }catch (Exception e){
-        }*/
-
         return rootView;
     }
 
