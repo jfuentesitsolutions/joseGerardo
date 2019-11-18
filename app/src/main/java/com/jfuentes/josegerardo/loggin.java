@@ -82,7 +82,6 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
             case R.id.btnIngresar:{
                 if(accediendoDatos()){
                     if(!validar()) {
-
                         String url = "http://" + ipe + ":" + puertoe + "/servidor/validacion_usuarios.php?usu=" + usuario.getText() + "&con=" + contra.getText();
                         conexion(url);
                     }
@@ -242,8 +241,8 @@ public class loggin extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"Desea salir de la aplicación",
-                "Si continua saldra de la aplicación");
+        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"¿Desea salir de la aplicación?",
+                "Si continua saldra de la aplicación", R.drawable.degradados_2);
 
         mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
             @Override

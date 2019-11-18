@@ -200,13 +200,30 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_marginRight="15dp"
                 android:elevation="8dp"
                 android:layout_gravity="center">
 
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/brand"
+                    android:layout_gravity="center"
+                    android:background="@drawable/redondeo"
+                    android:id="@+id/imgMarcas"
+                    android:elevation="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Marcas"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    />
 
             </LinearLayout>
         </TableRow>

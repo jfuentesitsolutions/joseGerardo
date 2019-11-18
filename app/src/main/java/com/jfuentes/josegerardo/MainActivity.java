@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     RequestQueue res;
-    ImageButton bu, usu, estan;
+    ImageButton bu, usu, estan, marcas, cate, prese;
     String ipe="", puertoe="";
     Intent intent;
     SharedPreferences prefe;
@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         usu=findViewById(R.id.imgBuscar);
         bu=findViewById(R.id.imgBuscar2);
         estan=findViewById(R.id.imgEstantes);
+        marcas=findViewById(R.id.imgMarcas);
+        cate=findViewById(R.id.imgCategorias);
+        prese=findViewById(R.id.imgPresentaciones);
 
         usu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,36 @@ public class MainActivity extends AppCompatActivity {
                 Intent intento= new Intent(MainActivity.this, lista_entidades.class);
                 intento.putExtra("titulo", "Lista de estantes");
                 intento.putExtra("tema",utilidades.ESTANTES);
+                startActivity(intento);
+            }
+        });
+
+        marcas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intento= new Intent(MainActivity.this, lista_entidades.class);
+                intento.putExtra("titulo", "Lista de marcas");
+                intento.putExtra("tema",utilidades.MARCAS);
+                startActivity(intento);
+            }
+        });
+
+        cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intento= new Intent(MainActivity.this, lista_entidades.class);
+                intento.putExtra("titulo", "Lista de categorias");
+                intento.putExtra("tema",utilidades.CATEGORIAS);
+                startActivity(intento);
+            }
+        });
+
+        prese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intento= new Intent(MainActivity.this, lista_entidades.class);
+                intento.putExtra("titulo", "Lista de presentaciones");
+                intento.putExtra("tema",utilidades.PRESENTACIONES);
                 startActivity(intento);
             }
         });
@@ -131,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog= mBuilder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
-
     }
 
     public void escanear(){
@@ -266,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"Desea salir de la aplicación",
-                "Si continua saldra de la aplicación");
+        final mensaje_dialogo_by_jfuentes mensaje=new mensaje_dialogo_by_jfuentes(this,"¿Desea salir de la aplicación?",
+                "Si continua saldra de la aplicación", R.drawable.degradados_2);
 
         mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
             @Override

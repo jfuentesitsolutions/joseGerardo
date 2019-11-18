@@ -2,12 +2,10 @@ package com.jfuentes.josegerardo.maestro_detalle_productos;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,12 +36,10 @@ import com.jfuentes.josegerardo.Adaptador;
 import com.jfuentes.josegerardo.R;
 import com.jfuentes.josegerardo.adaptadores.spinner_adaptador;
 import com.jfuentes.josegerardo.adaptadores.spinner_adaptador_2;
-import com.jfuentes.josegerardo.agregar_cantidades;
 import com.jfuentes.josegerardo.clases.entidad;
 import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
 import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
-import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
 import com.jfuentes.josegerardo.presentacion;
 import com.jfuentes.josegerardo.productos;
 import com.jfuentes.josegerardo.singleton;
@@ -218,6 +213,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         }
     }
 
+
     private void ventanasDialogos(int tv, int layout){
         AlertDialog.Builder dialogo = new AlertDialog.Builder(con.getContext());
         View vista=getLayoutInflater().inflate(layout,null);
@@ -261,16 +257,14 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
                 btnIngreCate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        entidad en=(entidad) categ.getSelectedItem();
+                        entidad en = (entidad) categ.getSelectedItem();
                         pro.setIdcateg(en.getValor());
-                        if(tablet){
+                        if (tablet) {
                             progreso.setVisibility(View.VISIBLE);
                             conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog, true, getActivity(), progreso);
-                        }else{
+                        } else {
                             conex.actualizandoDatos("1", en.getValor(), pro.getIdproducto(), categoria, en.toString(), dialog, false, null, null);
                         }
-
-
                     }
                 });
 

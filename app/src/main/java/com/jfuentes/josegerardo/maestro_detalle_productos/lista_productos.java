@@ -12,16 +12,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.jfuentes.josegerardo.R;
+import com.jfuentes.josegerardo.adaptador_productos;
+import com.jfuentes.josegerardo.busquedas;
+import com.jfuentes.josegerardo.clases.entidades.entity;
+import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
+import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
 import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
 import com.jfuentes.josegerardo.productos;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class lista_productos extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -55,8 +63,36 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         }
 
         lista=findViewById(R.id.lista_ele);
-        cargandoProductos();
         new tarea().execute(2);
+
+        SwipeableRecyclerViewTouchListener deslizar= new SwipeableRecyclerViewTouchListener(lista, new SwipeableRecyclerViewTouchListener.SwipeListener() {
+            @Override
+            public boolean canSwipeLeft(int position) {
+                return false;
+            }
+
+            @Override
+            public boolean canSwipeRight(int position) {
+                return true;
+            }
+
+            @Override
+            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] ints) {
+
+            }
+
+            @Override
+            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] ints) {
+                adaptador ada=(adaptador) recyclerView.getAdapter();
+                productos p=ada.getListaP().get(ints[0]);
+                ada.getListaP().remove(p);
+                lista_P.remove(p);
+                ada.notifyDataSetChanged();
+                eliminado_productos(p);
+            }
+        });
+
+        lista.addOnItemTouchListener(deslizar);
 
     }
 
@@ -140,6 +176,7 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         return true;
     }
 
+
     class tarea extends AsyncTask<Integer, Integer, ArrayList<productos>>{
 
         @Override
@@ -147,7 +184,6 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
                 lista_P.clear();
                 conec=new conexiones_base("",lista_productos.this);
                 lista_P=conec.todosLosProductos("");
-
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -169,12 +205,10 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
         @Override
         protected void onPostExecute(ArrayList<productos> productos) {
             super.onPostExecute(productos);
-
             progreso.setVisibility(View.GONE);
+            Collections.sort(productos);
             ada=new adaptador(lista_productos.this, productos, panelDos);
             lista.setAdapter(ada);
-
-
         }
 
         @Override
@@ -186,5 +220,29 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    private void eliminado_productos(final productos pro){
+        final mensaje_dialogo_by_jfuentes mensaje= new mensaje_dialogo_by_jfuentes(this, "Eliminar estante",
+                "¿Desea eliminar el producto: "+pro.getNombre()+"?", R.drawable.degradados_2);
+
+        mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //eliminar(entidad);
+                mensaje.cerrar();
+            }
+        });
+
+        mensaje.getCancelar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lista_P.add(pro);
+                ada.getListaP().add(pro);
+                Collections.sort(lista_P);
+                ada.notifyDataSetChanged();
+                mensaje.cerrar();
+            }
+        });
     }
 }

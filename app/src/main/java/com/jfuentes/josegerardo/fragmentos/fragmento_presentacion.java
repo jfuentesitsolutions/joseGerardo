@@ -1,23 +1,14 @@
-package com.jfuentes.josegerardo.maestro_detalle_productos;
+package com.jfuentes.josegerardo.fragmentos;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,17 +22,16 @@ import com.jfuentes.josegerardo.singleton;
 import java.util.HashMap;
 import java.util.Map;
 
+public class fragmento_presentacion extends Fragment {
 
-public class fragment_entidad extends Fragment {
-
-    TextView nombre, descripcion;
+    TextView nombre, descripcion, estado;
     entity entidad;
-    FloatingActionButton fab;
     ViewGroup con;
+    FloatingActionButton fab;
     singleton sesion=singleton.getInstance();
     CollapsingToolbarLayout barra_colapsable;
 
-    public fragment_entidad() {
+    public fragmento_presentacion() {
     }
 
     @Override
@@ -52,35 +42,39 @@ public class fragment_entidad extends Fragment {
         if(bundle!=null){
             entidad=(entity) bundle.getSerializable("enti");
             Activity actividad=getActivity();
-            barra_colapsable=actividad.findViewById(R.id.barra_colapsable_entidad);
             fab=actividad.findViewById(R.id.btnModificar);
+            barra_colapsable=actividad.findViewById(R.id.barra_colapsable_entidad);
         }
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final dialogos di=new dialogos(con, R.layout.dialogo_entidad);
-                di.colocarTitulo("Modificar estante");
-                di.deshabilitarEstado();
-                di.colocarDatos(nombre.getText().toString(), descripcion.getText().toString(), false, false);
-                di.mostrar();
+                dialogos di=new dialogos(con, R.layout.dialogo_entidad);
+                di.colocarTitulo("Modificar presentacion");
+                if(entidad.estado().equals("Activa")){
+                    di.colocarDatos(nombre.getText().toString(), descripcion.getText().toString(), true, true);
+                }else{
+                    di.colocarDatos(nombre.getText().toString(), descripcion.getText().toString(), false, true);
+                }
                 modificar(di);
+                di.mostrar();
             }
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_entidad, container, false);
+        View rootView = inflater.inflate(R.layout.fragmento_presentacion, container, false);
 
-        //Inicializando los valores.
         con=container;
         nombre=rootView.findViewById(R.id.txtNombre);
         descripcion=rootView.findViewById(R.id.txtDescripcion);
+        estado=rootView.findViewById(R.id.txtEstado);
 
         nombre.setText(entidad.nombre());
         descripcion.setText(entidad.descripcion());
+        estado.setText(entidad.estado());
 
         return rootView;
     }
@@ -92,21 +86,27 @@ public class fragment_entidad extends Fragment {
                 if(!di.validar()){
                     conexiones_base cone= new conexiones_base(con.getContext());
                     Map<String, String> map= new HashMap<>();
-                    map.put("entidad", utilidades.ESTANTES);
+                    map.put("entidad", utilidades.PRESENTACIONES);
                     map.put("opcion", utilidades.ACTUALIZAR_REGISTRO);
                     map.put("id", entidad.id());
                     map.put("nombre", di.getNombre().getText().toString());
                     map.put("descripcion", di.getDescrp().getText().toString());
+                    if(di.getEst().isChecked()){
+                        map.put("estado", "1");
+                        estado.setText("Activada");
+                    }else{
+                        map.put("estado","2");
+                        estado.setText("Inactiva");
+                    }
 
-                        cone.insertar(map);
-                        barra_colapsable.setTitle(di.getNombre().getText());
-                        nombre.setText(di.getNombre().getText());
-                        descripcion.setText(di.getDescrp().getText());
-                        sesion.setActualiza(true);
-                        di.cerrar();
+                    cone.insertar(map);
+                    barra_colapsable.setTitle(di.getNombre().getText());
+                    nombre.setText(di.getNombre().getText());
+                    descripcion.setText(di.getDescrp().getText());
+                    sesion.setActualiza(true);
+                    di.cerrar();
                 }
             }
         });
     }
-
 }

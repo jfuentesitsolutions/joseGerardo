@@ -56,8 +56,6 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busquedas);
 
@@ -77,7 +75,8 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
         cargandoProductos();
 
-        SwipeableRecyclerViewTouchListener desliza = new SwipeableRecyclerViewTouchListener(lista, new SwipeableRecyclerViewTouchListener.SwipeListener() {
+        SwipeableRecyclerViewTouchListener desliza = new SwipeableRecyclerViewTouchListener(lista,
+                new SwipeableRecyclerViewTouchListener.SwipeListener() {
             @Override
             public boolean canSwipeLeft(int position) {
                 return true;
@@ -90,7 +89,6 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
 
             @Override
             public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] ints) {
-
             }
 
             @Override
@@ -106,9 +104,7 @@ public class busquedas extends AppCompatActivity implements SearchView.OnQueryTe
                 Toast.makeText(busquedas.this, p.getNombre(), Toast.LENGTH_SHORT).show();
             }
         });
-
         lista.addOnItemTouchListener(desliza);
-
     }
 
     private void cargandoProductos(){

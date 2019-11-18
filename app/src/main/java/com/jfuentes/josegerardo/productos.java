@@ -2,7 +2,7 @@ package com.jfuentes.josegerardo;
 
 import java.io.Serializable;
 
-public class productos implements Serializable {
+public class productos implements Serializable, Comparable<productos> {
     private String nombre, codigo, categoria, marca, estante, id, existencias, idproducto, idmarca, idcateg, idestante;
 
     public String getIdmarca() {
@@ -115,5 +115,12 @@ public class productos implements Serializable {
         this.idmarca = idmarca;
         this.idcateg = idcateg;
         this.idestante = idestante;
+    }
+
+    @Override
+    public int compareTo(productos o) {
+        String a =this.getNombre();
+        String b = o.getNombre();
+        return a.compareTo(b);
     }
 }

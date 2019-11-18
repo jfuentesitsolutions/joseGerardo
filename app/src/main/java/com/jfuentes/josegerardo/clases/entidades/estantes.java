@@ -33,4 +33,9 @@ public class estantes implements entity {
     public String estado() {
         return null;
     }
+
+    @Override
+    public int compareTo(entity o) {
+        return this.nombre.compareTo(o.nombre());
+    }
 }

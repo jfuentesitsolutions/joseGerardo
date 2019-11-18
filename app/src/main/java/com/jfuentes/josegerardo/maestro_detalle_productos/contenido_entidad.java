@@ -15,35 +15,36 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jfuentes.josegerardo.R;
+import com.jfuentes.josegerardo.clases.dialogos;
 import com.jfuentes.josegerardo.clases.entidades.entity;
 import com.jfuentes.josegerardo.clases.utilidades;
+import com.jfuentes.josegerardo.fragmentos.fragmento_categoria;
+import com.jfuentes.josegerardo.fragmentos.fragmento_marcas;
+import com.jfuentes.josegerardo.fragmentos.fragmento_presentacion;
+import com.jfuentes.josegerardo.singleton;
 
 public class contenido_entidad extends AppCompatActivity {
 
     AppBarLayout layout;
     CollapsingToolbarLayout barra_colapsable;
     String tipo_entidad;
+    FloatingActionButton fab;
+    singleton sesion = singleton.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.color_mango_NoActionBar);
+
+        colocarTema(getIntent().getExtras().getString("enti"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenido_entidad);
 
         layout=findViewById(R.id.barra_herra_entidad);
-
-
         barra_colapsable=findViewById(R.id.barra_colapsable_entidad);
+        fab=findViewById(R.id.btnModificar);
+
 
         Toolbar toolbar = findViewById(R.id.barra_interna_entidad);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab =  findViewById(R.id.btnModificar);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -62,12 +63,46 @@ public class contenido_entidad extends AppCompatActivity {
         }
     }
 
+    private void colocarTema(String tema){
+        switch (tema){
+            case utilidades.ESTANTES:{
+                setTheme(R.style.color_mango_NoActionBar);
+                break;
+            }
+            case utilidades.MARCAS:{
+                setTheme(R.style.color_manzana_NoActionBar);
+                break;
+            }
+            case utilidades.CATEGORIAS:{
+                setTheme(R.style.color_remolacha_NoActionBar);
+                break;
+            }
+            case utilidades.PRESENTACIONES:{
+                setTheme(R.style.color_uva_NoActionBar);
+                break;
+            }
+        }
+    }
+
     private void colocarEstilo(String tema){
         switch (tema){
             case utilidades.ESTANTES:{
                 layout.setBackgroundResource(R.drawable.degradados_3);
                 break;
             }
+            case utilidades.MARCAS:{
+                layout.setBackgroundResource(R.drawable.degradados_4);
+                break;
+            }
+            case utilidades.CATEGORIAS:{
+                layout.setBackgroundResource(R.drawable.degradados_5);
+                break;
+            }
+            case utilidades.PRESENTACIONES:{
+                layout.setBackgroundResource(R.drawable.degradados_6);
+                break;
+            }
+
         }
     }
 
@@ -81,6 +116,30 @@ public class contenido_entidad extends AppCompatActivity {
                         .commit();
                 break;
             }
+            case utilidades.MARCAS:{
+                fragmento_marcas fragment = new fragmento_marcas();
+                fragment.setArguments(args);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.detalles_entidad, fragment)
+                        .commit();
+                break;
+            }
+            case utilidades.CATEGORIAS:{
+                fragmento_categoria fragment = new fragmento_categoria();
+                fragment.setArguments(args);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.detalles_entidad, fragment)
+                        .commit();
+                break;
+            }
+            case utilidades.PRESENTACIONES:{
+                fragmento_presentacion fragment = new fragmento_presentacion();
+                fragment.setArguments(args);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.detalles_entidad, fragment)
+                        .commit();
+                break;
+            }
         }
     }
 
@@ -88,11 +147,57 @@ public class contenido_entidad extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:{
-                finish();
+                if(sesion.getActualiza()){
+                    actualizarListas();
+                }else{
+                    finish();
+                }
                 break;
             }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(sesion.getActualiza()){
+            actualizarListas();
+        }
+    }
+
+    private void actualizarListas(){
+        Intent intent= new Intent(this,lista_entidades.class);
+        switch (tipo_entidad){
+            case utilidades.ESTANTES:{
+                intent.putExtra("titulo", "Lista de estantes");
+                intent.putExtra("tema",utilidades.ESTANTES);
+                navigateUpTo(intent);
+                sesion.setActualiza(false);
+                break;
+            }
+            case utilidades.MARCAS:{
+                intent.putExtra("titulo", "Lista de marcas");
+                intent.putExtra("tema",utilidades.MARCAS);
+                navigateUpTo(intent);
+                sesion.setActualiza(false);
+                break;
+            }
+            case utilidades.CATEGORIAS:{
+                intent.putExtra("titulo", "Lista de categorias");
+                intent.putExtra("tema",utilidades.CATEGORIAS);
+                navigateUpTo(intent);
+                sesion.setActualiza(false);
+                break;
+            }
+            case utilidades.PRESENTACIONES:{
+                intent.putExtra("titulo", "Lista de presentaciones");
+                intent.putExtra("tema",utilidades.PRESENTACIONES);
+                navigateUpTo(intent);
+                sesion.setActualiza(false);
+                break;
+            }
+        }
     }
 }

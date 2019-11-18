@@ -78,4 +78,8 @@ public class adapatador_entidad extends RecyclerView.Adapter<viewHolder_entidad>
         intent.putExtras(dato);
         c.startActivity(intent);
     }
+
+    public ArrayList<entity> getLista() {
+        return lista;
+    }
 }

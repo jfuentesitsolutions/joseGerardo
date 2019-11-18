@@ -14,6 +14,17 @@
     <color name="amarillo_mango">#FFD54F</color>
     <color name="mango_maduro">#FF8F00</color>
     <color name="blanco">#ffffff</color>
+    <color name="manzana">#66BB6A</color>
+    <color name="manzana_verde">#AED581</color>
+    <color name="manzana_gala">#43A047</color>
+    <color name="remolacha">#D81B60</color>
+    <color name="remolacha_tierna">#F06292</color>
+    <color name="remolacha_falta">#F48FB1</color>
+    <color name="uva_madura">#8E24AA</color>
+    <color name="uva">#BA68C8</color>
+    <color name="uva_tierna">#CE93D8</color>
+    <color name="negro">#050505</color>
+
 
 
 </resources>

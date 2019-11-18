@@ -22,11 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.jfuentes.josegerardo.Adaptador;
 import com.jfuentes.josegerardo.MainActivity;
 import com.jfuentes.josegerardo.R;
-import com.jfuentes.josegerardo.info_producto;
 import com.jfuentes.josegerardo.presentacion;
 import com.jfuentes.josegerardo.productos;
 import com.jfuentes.josegerardo.singleton;
@@ -52,7 +50,12 @@ public class contenido_elemento extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             if(!contenido){
-                navigateUpTo(new Intent(this, lista_productos.class));
+                if(sesion.getActualiza()){
+                    navigateUpTo(new Intent(this, lista_productos.class));
+                }else {
+                    finish();
+                }
+
             }else{
                 navigateUpTo(new Intent(this, MainActivity.class));
             }
@@ -108,7 +111,6 @@ public class contenido_elemento extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         if(!contenido){
             if(sesion.getActualiza()){
                 navigateUpTo(new Intent(this, lista_productos.class));

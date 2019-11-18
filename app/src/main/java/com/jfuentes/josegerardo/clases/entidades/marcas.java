@@ -32,4 +32,9 @@ public class marcas implements entity {
     public String estado() {
         return null;
     }
+
+    @Override
+    public int compareTo(entity o) {
+        return nombre.compareTo(o.nombre());
+    }
 }

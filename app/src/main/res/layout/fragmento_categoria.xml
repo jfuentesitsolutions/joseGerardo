@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".maestro_detalle_productos.fragment_entidad">
+    tools:context=".fragmentos.fragmento_categoria">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             app:cardElevation="6dp"
             android:layout_marginBottom="25dp"
             app:cardCornerRadius="6dp"
-            app:cardBackgroundColor="@color/mango"
+            app:cardBackgroundColor="@color/remolacha_tierna"
             app:cardPreventCornerOverlap="false"
 
             >
@@ -89,7 +89,7 @@
             app:cardElevation="6dp"
             android:layout_marginBottom="25dp"
             app:cardCornerRadius="6dp"
-            app:cardBackgroundColor="@color/mango"
+            app:cardBackgroundColor="@color/remolacha_tierna"
             app:cardPreventCornerOverlap="false"
 
             >

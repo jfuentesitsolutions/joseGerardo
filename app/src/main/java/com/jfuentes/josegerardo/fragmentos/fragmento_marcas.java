@@ -1,23 +1,16 @@
-package com.jfuentes.josegerardo.maestro_detalle_productos;
+package com.jfuentes.josegerardo.fragmentos;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,16 +25,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class fragment_entidad extends Fragment {
+public class fragmento_marcas extends Fragment {
 
     TextView nombre, descripcion;
     entity entidad;
-    FloatingActionButton fab;
     ViewGroup con;
+    FloatingActionButton fab;
     singleton sesion=singleton.getInstance();
     CollapsingToolbarLayout barra_colapsable;
 
-    public fragment_entidad() {
+    public fragmento_marcas() {
+        // Required empty public constructor
     }
 
     @Override
@@ -56,23 +50,24 @@ public class fragment_entidad extends Fragment {
             fab=actividad.findViewById(R.id.btnModificar);
         }
 
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final dialogos di=new dialogos(con, R.layout.dialogo_entidad);
-                di.colocarTitulo("Modificar estante");
+                dialogos di=new dialogos(con, R.layout.dialogo_entidad);
+                di.colocarTitulo("Modificar marca");
                 di.deshabilitarEstado();
                 di.colocarDatos(nombre.getText().toString(), descripcion.getText().toString(), false, false);
-                di.mostrar();
                 modificar(di);
+                di.mostrar();
+
             }
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_entidad, container, false);
+        View rootView=inflater.inflate(R.layout.fragment_fragmento_marcas, container, false);
 
         //Inicializando los valores.
         con=container;
@@ -92,18 +87,18 @@ public class fragment_entidad extends Fragment {
                 if(!di.validar()){
                     conexiones_base cone= new conexiones_base(con.getContext());
                     Map<String, String> map= new HashMap<>();
-                    map.put("entidad", utilidades.ESTANTES);
+                    map.put("entidad", utilidades.MARCAS);
                     map.put("opcion", utilidades.ACTUALIZAR_REGISTRO);
                     map.put("id", entidad.id());
                     map.put("nombre", di.getNombre().getText().toString());
                     map.put("descripcion", di.getDescrp().getText().toString());
 
-                        cone.insertar(map);
-                        barra_colapsable.setTitle(di.getNombre().getText());
-                        nombre.setText(di.getNombre().getText());
-                        descripcion.setText(di.getDescrp().getText());
-                        sesion.setActualiza(true);
-                        di.cerrar();
+                    cone.insertar(map);
+                    barra_colapsable.setTitle(di.getNombre().getText());
+                    nombre.setText(di.getNombre().getText());
+                    descripcion.setText(di.getDescrp().getText());
+                    sesion.setActualiza(true);
+                    di.cerrar();
                 }
             }
         });

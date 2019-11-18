@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".maestro_detalle_productos.fragment_entidad">
+    tools:context=".fragmentos.fragmento_presentacion">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             app:cardElevation="6dp"
             android:layout_marginBottom="25dp"
             app:cardCornerRadius="6dp"
-            app:cardBackgroundColor="@color/mango"
+            app:cardBackgroundColor="@color/uva"
             app:cardPreventCornerOverlap="false"
 
             >
@@ -89,7 +89,7 @@
             app:cardElevation="6dp"
             android:layout_marginBottom="25dp"
             app:cardCornerRadius="6dp"
-            app:cardBackgroundColor="@color/mango"
+            app:cardBackgroundColor="@color/uva"
             app:cardPreventCornerOverlap="false"
 
             >
@@ -144,6 +144,66 @@
 
 
 
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tar_estado"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="25dp"
+            app:cardCornerRadius="6dp"
+            app:cardBackgroundColor="@color/uva"
+            app:cardPreventCornerOverlap="false"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sliders"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtEstado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="Estado"
+                            android:textSize="18sp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
 

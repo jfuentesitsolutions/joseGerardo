@@ -51,16 +51,13 @@ public class adaptador extends RecyclerView.Adapter<ViewHolder> {
                 intent.putExtras(bundle);
 
                 context.startActivity(intent);
-                //((Activity)context).finish();
             }
 
         }
     };
 
-
-
-    public void setListaP(List<productos> listaP) {
-        this.listaP = listaP;
+    public List<productos> getListaP() {
+        return listaP;
     }
 
     public adaptador(lista_productos parent, List<productos> items, boolean twoPane) {

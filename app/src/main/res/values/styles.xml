@@ -13,7 +13,7 @@
         <item name="colorPrimary">@color/mango</item>
         <item name="colorPrimaryDark">@color/amarillo_mango</item>
         <item name="colorAccent">@color/mango_maduro</item>
-        <item name="colorSecondary">@color/blanco</item>
+        <item name="colorButtonNormal">@color/mango</item>
     </style>
 
     <style name="color_mango.NoActionBar">
@@ -22,6 +22,57 @@
         <item name="colorPrimary">@color/mango</item>
         <item name="colorPrimaryDark">@color/amarillo_mango</item>
         <item name="colorAccent">@color/mango_maduro</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
+    <style name="color_manzana" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/manzana_verde</item>
+        <item name="colorPrimaryDark">@color/manzana</item>
+        <item name="colorAccent">@color/manzana_gala</item>
+        <item name="colorSecondary">@color/blanco</item>
+        <item name="colorButtonNormal">@color/manzana</item>
+    </style>
+
+    <style name="color_manzana.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/manzana_verde</item>
+        <item name="colorPrimaryDark">@color/manzana</item>
+        <item name="colorAccent">@color/manzana_gala</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
+    <style name="color_remolacha" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/remolacha_falta</item>
+        <item name="colorPrimaryDark">@color/remolacha_tierna</item>
+        <item name="colorAccent">@color/remolacha</item>
+        <item name="colorSecondary">@color/blanco</item>
+        <item name="colorButtonNormal">@color/remolacha</item>
+    </style>
+
+    <style name="color_remolacha.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/remolacha_falta</item>
+        <item name="colorPrimaryDark">@color/remolacha_tierna</item>
+        <item name="colorAccent">@color/remolacha</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
+    <style name="color_uva" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/uva_tierna</item>
+        <item name="colorPrimaryDark">@color/uva</item>
+        <item name="colorAccent">@color/uva_madura</item>
+        <item name="colorSecondary">@color/blanco</item>
+        <item name="colorButtonNormal">@color/uva</item>
+    </style>
+
+    <style name="color_uva.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/uva_tierna</item>
+        <item name="colorPrimaryDark">@color/uva</item>
+        <item name="colorAccent">@color/uva_madura</item>
         <item name="colorSecondary">@color/blanco</item>
     </style>
 

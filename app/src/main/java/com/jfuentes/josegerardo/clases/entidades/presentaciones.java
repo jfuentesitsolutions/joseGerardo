@@ -2,7 +2,7 @@ package com.jfuentes.josegerardo.clases.entidades;
 
 public class presentaciones implements entity {
 
-    String id, nombre, descripcion, estado;
+    private String id, nombre, descripcion, estado;
 
     public presentaciones(String id, String nombre, String descripcion, String estado) {
         this.id = id;
@@ -32,5 +32,10 @@ public class presentaciones implements entity {
     @Override
     public String estado() {
         return estado;
+    }
+
+    @Override
+    public int compareTo(entity o) {
+        return nombre.compareTo(o.nombre());
     }
 }
