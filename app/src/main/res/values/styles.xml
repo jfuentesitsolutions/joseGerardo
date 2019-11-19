@@ -9,6 +9,13 @@
         <item name="editTextColor">@color/colorText</item>
     </style>
 
+    <style name="color_mora" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/mora_azul</item>
+        <item name="colorPrimaryDark">@color/mora</item>
+        <item name="colorAccent">@color/mora_tierna</item>
+        <item name="colorButtonNormal">@color/mora_falta</item>
+    </style>
+
     <style name="color_mango" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/mango</item>
         <item name="colorPrimaryDark">@color/amarillo_mango</item>

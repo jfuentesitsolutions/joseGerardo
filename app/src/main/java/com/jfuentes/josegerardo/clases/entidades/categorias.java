@@ -13,6 +13,10 @@ public class categorias implements entity {
     public categorias() {
     }
 
+    public String toString(){
+        return this.nombre;
+    }
+
     @Override
     public String nombre() {
         return nombre;

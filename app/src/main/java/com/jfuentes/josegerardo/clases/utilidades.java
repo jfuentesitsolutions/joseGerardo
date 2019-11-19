@@ -12,6 +12,8 @@ public class utilidades {
     final public static String ESTANTES="estantes";
     final public static String MARCAS="marcas";
     final public static String PRESENTACIONES="presentaciones";
+    final public static String PRODUCTOS="productos";
+    final public static String SUCURSALES="sucursales";
 
     final public static String CANTIDAD="1";
     final public static String REGISTROS="2";

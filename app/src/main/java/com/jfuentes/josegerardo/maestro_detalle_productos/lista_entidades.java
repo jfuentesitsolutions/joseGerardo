@@ -459,7 +459,7 @@ public class lista_entidades extends AppCompatActivity implements SearchView.OnQ
             @Override
             public void onClick(View v) {
                 lista_P.add(entidad);
-                ada.getLista().add(entidad);
+                //ada.getLista().add(entidad);
                 Collections.sort(lista_P);
                 ada.notifyDataSetChanged();
                 finalMensaje.cerrar();

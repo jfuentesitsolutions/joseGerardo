@@ -24,6 +24,7 @@ import com.jfuentes.josegerardo.clases.entidades.entity;
 import com.jfuentes.josegerardo.clases.entidades.estantes;
 import com.jfuentes.josegerardo.clases.entidades.marcas;
 import com.jfuentes.josegerardo.clases.entidades.presentaciones;
+import com.jfuentes.josegerardo.clases.entidades.sucursales;
 import com.jfuentes.josegerardo.maestro_detalle_productos.lista_productos;
 
 import org.json.JSONArray;
@@ -409,7 +410,6 @@ public class conexiones_base {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject objeto=null;
-
                 for (int i=0;i<response.length();i++){
                     try {
                         objeto= response.getJSONObject(i);
@@ -441,6 +441,12 @@ public class conexiones_base {
                                         objeto.getString("nombre_presentacion"),
                                         objeto.getString("descripcion"),
                                         objeto.getString("estado")));
+                                break;
+                            }
+
+                            case "sucursales":{
+                                lis_E.add(new sucursales(objeto.getString("idsucursal"),
+                                        objeto.getString("numero_de_sucursal")));
                                 break;
                             }
                         }

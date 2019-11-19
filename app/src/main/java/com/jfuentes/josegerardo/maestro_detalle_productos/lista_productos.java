@@ -3,6 +3,7 @@ package com.jfuentes.josegerardo.maestro_detalle_productos;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,19 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.jfuentes.josegerardo.R;
-import com.jfuentes.josegerardo.adaptador_productos;
-import com.jfuentes.josegerardo.busquedas;
-import com.jfuentes.josegerardo.clases.entidades.entity;
 import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
-import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
 import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.adaptador;
+import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.nuevo_producto;
 import com.jfuentes.josegerardo.productos;
 
 
@@ -53,8 +49,8 @@ public class lista_productos extends AppCompatActivity implements SearchView.OnQ
 
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, String.valueOf(ada.getItemCount()), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent=new Intent(getApplicationContext(), nuevo_producto.class);
+                startActivity(intent);
             }
         });
 

@@ -13,12 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".maestro_detalle_productos.contenido_entidad"></activity>
+        <activity android:name=".maestro_detalle_productos.adaptador_maestro.nuevo_producto"></activity>
+        <activity android:name=".maestro_detalle_productos.contenido_entidad" />
         <activity android:name=".maestro_detalle_productos.lista_entidades" />
         <activity
             android:name=".maestro_detalle_productos.contenido_elemento"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".maestro_detalle_productos.lista_productos" />
+        <activity android:name=".maestro_detalle_productos.lista_productos"
+            android:theme="@style/color_mora"/>
         <activity android:name=".agregar_cantidades" />
         <activity
             android:name=".busquedas"
@@ -41,7 +43,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/color_mora" />
     </application>
 
 </manifest>
