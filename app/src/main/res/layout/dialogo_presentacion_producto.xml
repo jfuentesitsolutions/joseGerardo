@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/mora_azul"
+        android:elevation="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="lblProducto"
+            android:id="@+id/lblTitulo"
+            android:textColor="@color/blanco"
+            android:textSize="@dimen/titulos"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/lista_prese" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/margen_botones">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad interna"
+            android:id="@+id/layouCantiInterna"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/txtCantidaI"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio"
+            android:id="@+id/layouPrecio"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/txtPrecio"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/grpBoton"
+        android:layout_marginBottom="@dimen/margen_botones">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rdDetalle"
+            android:hint="Detalle"
+            android:layout_weight="1" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Mayoreo"
+            android:id="@+id/rdMayoreo"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prioridad     "
+            android:id="@+id/swPriori"
+            android:gravity="right"
+            android:layout_marginBottom="@dimen/margen_botones"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Estado        "
+            android:id="@+id/swEstado"
+            android:gravity="right"
+            android:layout_marginBottom="@dimen/margen_botones"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:gravity="right">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Cancelar"
+                android:id="@+id/btnDcan"
+                android:textColor="@color/mora_azul"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Agregar"
+                android:id="@+id/btnDagre"
+                android:textColor="@color/mora_azul"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_gravity="center_horizontal|center_vertical" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

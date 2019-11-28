@@ -16,6 +16,16 @@
         <item name="colorButtonNormal">@color/mora_falta</item>
     </style>
 
+    <style name="color_mora.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/mora_azul</item>
+        <item name="colorPrimaryDark">@color/mora</item>
+        <item name="colorAccent">@color/mora_tierna</item>
+        <item name="colorButtonNormal">@color/mora_falta</item>
+        <item name="colorSecondary">@color/blanco</item>
+    </style>
+
     <style name="color_mango" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/mango</item>
         <item name="colorPrimaryDark">@color/amarillo_mango</item>

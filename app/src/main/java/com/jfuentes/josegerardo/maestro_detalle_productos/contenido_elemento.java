@@ -44,6 +44,7 @@ public class contenido_elemento extends AppCompatActivity {
     RequestQueue res;
     String ipe, puertoe;
     singleton sesion=singleton.getInstance();
+    productos pro=null;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -76,7 +77,11 @@ public class contenido_elemento extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abrirVentanaDialogo();
+                Intent intent=new Intent(getApplicationContext(), nueva_presentacion.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("producto",pro);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -88,7 +93,7 @@ public class contenido_elemento extends AppCompatActivity {
         if (savedInstanceState == null) {
             bundle = getIntent().getExtras();
             Bundle arguments= new Bundle();
-            productos pro=null;
+
 
             if(bundle!=null){
                 pro=(productos)bundle.getSerializable("producto");

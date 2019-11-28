@@ -45,4 +45,5 @@ public class entidad {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 }

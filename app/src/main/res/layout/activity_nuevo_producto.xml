@@ -45,7 +45,8 @@
                     android:id="@+id/codigo_scaner"
                     android:src="@drawable/barcode_32_black"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="5"/>
+                    android:layout_weight="5"
+                    android:onClick="escaner"/>
 
             </LinearLayout>
 
@@ -59,7 +60,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txtNombre_np" />
+                    android:id="@+id/txtNombre_np"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:spinnerMode="dialog"
-                android:id="@+id/lista_enta"
+                android:id="@+id/lista_esta"
                 android:layout_marginBottom="10dp"
                 />
 
@@ -97,37 +98,71 @@
                 android:layout_marginBottom="10dp"
                 />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layou_exis"
-                android:hint="Existencias"
-                android:layout_weight="1">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/padding_botones">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:id="@+id/txtExis_np" />
+                    android:layout_weight="1"
+                    android:id="@+id/layou_exis"
+                    android:hint="Existencias">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:id="@+id/txtExis_np" />
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kardex  "
-                android:layout_gravity="right"
-                android:textColor="@android:color/darker_gray"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kardex"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:id="@+id/swES"
+                    android:textSize="@dimen/btn1"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@android:color/darker_gray"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Elegir la presentación"
-                android:textAlignment="center"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Agregar presentación"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnAgregaPresen"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/add"
+                    android:onClick="agregaPresentacion"/>
+
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:id="@+id/lst_pre"
                 />
 
             <Button
@@ -135,7 +170,9 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="Guardar"
-                android:layout_gravity="center"/>
+                android:onClick="guardando"
+                android:layout_gravity="center"
+                android:textColor="@color/blanco"/>
 
 
         </LinearLayout>

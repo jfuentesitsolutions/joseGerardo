@@ -40,6 +40,7 @@ import com.jfuentes.josegerardo.clases.entidad;
 import com.jfuentes.josegerardo.clases.mensaje_dialogo_by_jfuentes;
 import com.jfuentes.josegerardo.clases.utilidades;
 import com.jfuentes.josegerardo.conexiones_base;
+import com.jfuentes.josegerardo.maestro_detalle_productos.adaptador_maestro.nuevo_codigo;
 import com.jfuentes.josegerardo.presentacion;
 import com.jfuentes.josegerardo.productos;
 import com.jfuentes.josegerardo.singleton;
@@ -60,13 +61,12 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
     TextView nombre, coodigo, categoria, marca, estante, existencia;
     Bundle bundle=null;
     productos pro=null;
-    CardView tarNombre, tarCategoria, tarMarca, tarEstante, tarExistencia, tarPresenta;
+    CardView tarNombre, tarCategoria, tarMarca, tarEstante, tarExistencia, tarPresenta, tarCodigo;
     ViewGroup con;
     ArrayList<entidad> lista_categoria= new ArrayList<entidad>();
     ArrayList<entidad> lista_marca= new ArrayList<entidad>();
     ArrayList<entidad> lista_estante= new ArrayList<entidad>();
     ArrayList<presentacion> lista= new ArrayList<presentacion>();
-    ArrayList<productos> list_pro= new ArrayList<productos>();
     conexiones_base conex;
     RequestQueue res;
     EditText nombree;
@@ -135,6 +135,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         tarEstante=rootView.findViewById(R.id.tarjetaEstante);
         tarExistencia=rootView.findViewById(R.id.tarjetaExistencia);
         tarPresenta=rootView.findViewById(R.id.tarjetaPresentaciones);
+        tarCodigo=rootView.findViewById(R.id.tarjetaCodigo);
 
 
         tarNombre.setOnClickListener(this);
@@ -147,6 +148,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
         }else{
             tarPresenta.setVisibility(View.GONE);
         }
+        tarCodigo.setOnClickListener(this);
 
 
 
@@ -195,6 +197,15 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
 
             case R.id.tarjetaPresentaciones:{
                 abrirVentanaDialogo();
+                break;
+            }
+
+            case R.id.tarjetaCodigo:{
+                Intent intent=new Intent(getContext(), nuevo_codigo.class);
+                Bundle bundle= new Bundle();
+                bundle.putSerializable("producto", pro);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             }
 
@@ -474,7 +485,7 @@ public class fragment_contenido extends Fragment implements View.OnClickListener
 
         final mensaje_dialogo_by_jfuentes mensaje = new mensaje_dialogo_by_jfuentes(con.getContext(),
                 "Mensaje de confirmación",
-                "Deseas "+tipo+" "+canti+" "+prese+" de este producto");
+                "Deseas "+tipo+" "+canti+" "+prese+" de este producto", R.drawable.degradados_2);
         mensaje.getAcepta().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
