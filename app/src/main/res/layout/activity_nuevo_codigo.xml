@@ -29,7 +29,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/add"
-        android:theme="@style/tema_btn"
-        android:onClick="nuevo_codigo"/>
+        android:theme="@style/tema_btn" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

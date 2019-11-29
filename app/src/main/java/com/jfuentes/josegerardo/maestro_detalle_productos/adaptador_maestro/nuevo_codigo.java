@@ -23,6 +23,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -47,6 +48,7 @@ public class nuevo_codigo extends AppCompatActivity {
     productos pro;
     EditText txtCodigo;
     Adaptador_codigos ada;
+    FloatingActionButton agrega;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,7 @@ public class nuevo_codigo extends AppCompatActivity {
             pro=(productos)bundle.getSerializable("producto");
         }
 
+        agrega=findViewById(R.id.btnAgregaProducto);
         lista=findViewById(R.id.lista_codi);
         setTitle(pro.getNombre());
         conexiones_base cone = new conexiones_base(this);
@@ -71,11 +74,15 @@ public class nuevo_codigo extends AppCompatActivity {
             }
         });
 
+        agrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogoAgregar().show();
+            }
+        });
+
     }
 
-    public void nuevo_codigo(View view){
-        dialogoAgregar().show();
-    }
 
     private AlertDialog dialogoAgregar(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

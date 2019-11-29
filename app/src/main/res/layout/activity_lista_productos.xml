@@ -31,7 +31,6 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:id="@+id/progre"
-        android:indeterminateTint="@color/colorPrimary"
         />
 
 

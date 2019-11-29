@@ -25,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jfuentes.josegerardo.Adaptador;
@@ -55,12 +56,14 @@ public class nueva_presentacion extends AppCompatActivity {
     ArrayList<entidad> lista_prese;
     conexiones_base cone;
     Adaptador adap;
+    FloatingActionButton agrega;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_presentacion);
 
+        agrega=findViewById(R.id.btnAgregaProducto);
         bundle = getIntent().getExtras();
 
         if(bundle!=null){
@@ -76,6 +79,13 @@ public class nueva_presentacion extends AppCompatActivity {
         cone=new conexiones_base(this);
         lista_prese=cone.llenarSpinerPre();
         lista_prese.add(new entidad("Elija una presentación","0",""));
+
+        agrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogoAgregar().show();
+            }
+        });
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,9 +150,6 @@ public class nueva_presentacion extends AppCompatActivity {
         }
     }
 
-    public void agregar_presentacion(View view){
-        dialogoAgregar().show();
-    }
 
     private AlertDialog dialogoAgregarC(final presentacion pres){
         Log.d("prese_del_pro", pres.getIdpre());
